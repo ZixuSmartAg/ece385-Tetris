@@ -16,15 +16,15 @@ begin
 		&& DrawY > (y[0] * square_pixel_size) && ((y[0] + 1'b1) * square_pixel_size) > DrawY )
 			is_shape = 1'b1;
 
-	if(x > (x[1] * square_pixel_size) && ((x[1] + 1'b1) * square_pixel_size) > x 
+	else if(x > (x[1] * square_pixel_size) && ((x[1] + 1'b1) * square_pixel_size) > x 
 		&& DrawY > (y[1] * square_pixel_size) && ((y[1] + 1'b1) * square_pixel_size) > DrawY )
 			is_shape = 1'b1;
 
-	if(x > (x[2] * square_pixel_size) && ((x[2] + 1'b1) * square_pixel_size) > x 
+	else if(x > (x[2] * square_pixel_size) && ((x[2] + 1'b1) * square_pixel_size) > x 
 		&& DrawY > (y[2] * square_pixel_size) && ((y[2] + 1'b1) * square_pixel_size) > DrawY )
 			is_shape = 1'b1;
 
-	if(x > (x[3] * square_pixel_size) && ((x[3] + 1'b1) * square_pixel_size) > x 
+	else if(x > (x[3] * square_pixel_size) && ((x[3] + 1'b1) * square_pixel_size) > x 
 		&& DrawY > (y[3] * square_pixel_size) && ((y[3] + 1'b1) * square_pixel_size) > DrawY )
 			is_shape = 1'b1;
 
