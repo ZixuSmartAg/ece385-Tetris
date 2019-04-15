@@ -1,6 +1,6 @@
 module  s_shape ( input  Clk,
                          Reset,
-                  intput logic alive,
+                  input logic alive,
                   input [4:0] left, top,  
                   input [1:0]   rotation,
                   output [4:0] xpos[4:0],
