@@ -3,8 +3,8 @@ module  s_shape ( input  Clk,
                   intput logic alive,
                   input [4:0] left, top,  
                   input [1:0]   rotation,
-                  output [4:0] xpos[4:0],
-                  output [4:0] ypos[4:0]
+                  output [4:0] xpos[3:0],
+                  output [4:0] ypos[3:0]
                   );
 
     always_comb
@@ -58,6 +58,11 @@ module  s_shape ( input  Clk,
                     end
 					default:	;
             endcase
+        end
+        else
+        begin
+            xpos = xpos;
+            ypos = ypos;
         end
     end
 endmodule
@@ -124,6 +129,11 @@ module  z_shape ( input  Clk,
 					default:	;
             endcase
         end
+        else
+        begin
+            xpos = xpos;
+            ypos = ypos;
+        end
     end
 endmodule
 
@@ -188,6 +198,11 @@ module  t_shape ( input  Clk,
                     end
 					default:	;
             endcase
+        end
+        else
+        begin
+            xpos = xpos;
+            ypos = ypos;
         end
     end
 endmodule
@@ -255,6 +270,11 @@ module  l_shape ( input  Clk,
 					default:	;
             endcase
         end
+        else
+        begin
+            xpos = xpos;
+            ypos = ypos;
+        end
     end
 endmodule
 
@@ -319,6 +339,11 @@ module  line_shape ( input  Clk,
                     end
 					default:	;
             endcase
+        end
+        else
+        begin
+            xpos = xpos;
+            ypos = ypos;
         end
     end
 endmodule
@@ -385,6 +410,11 @@ module  mirror_l_shape ( input  Clk,
 					default:	;
             endcase
         end
+        else
+        begin
+            xpos = xpos;
+            ypos = ypos;
+        end
     end
 endmodule
 
@@ -449,6 +479,11 @@ module  square_shape ( input  Clk,
                     end
 					default:	;
             endcase
+        end
+        else
+        begin
+            xpos = xpos;
+            ypos = ypos;
         end
     end
 endmodule
