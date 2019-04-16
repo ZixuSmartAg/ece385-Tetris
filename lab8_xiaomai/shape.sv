@@ -36,21 +36,21 @@ module  shape ( input         Clk,                // 50 MHz clock
     logic [4:0] height, height_test;
     logic [4:0] blocks_xpos_test[3:0], blocks_ypos_test[3:0];
     
-    s_shape s_instance(.Clk(Clk), .Reset(Reset), .alive(choose_s), .left(left), .top(top), .rotation(rotation), .xpos(blocks_xpos), .ypos(blocks_ypos), .height(height));
-    z_shape z_instance(.Clk(Clk), .Reset(Reset), .alive(choose_z), .left(left), .top(top), .rotation(rotation), .xpos(blocks_xpos), .ypos(blocks_ypos), .height(height));
-    t_shape t_instance(.Clk(Clk), .Reset(Reset), .alive(choose_t), .left(left), .top(top), .rotation(rotation), .xpos(blocks_xpos), .ypos(blocks_ypos), .height(height));
-    l_shape l_instance(.Clk(Clk), .Reset(Reset), .alive(choose_l), .left(left), .top(top), .rotation(rotation), .xpos(blocks_xpos), .ypos(blocks_ypos), .height(height));
-    line_shape line_instance(.Clk(Clk), .Reset(Reset), .alive(choose_line), .left(left), .top(top), .rotation(rotation), .xpos(blocks_xpos), .ypos(blocks_ypos), .height(height));
-    mirror_l_shape mirror_l_instance(.Clk(Clk), .Reset(Reset), .alive(choose_ml), .left(left), .top(top), .rotation(rotation), .xpos(blocks_xpos), .ypos(blocks_ypos), .height(height));
-    square_shape square_instance(.Clk(Clk), .Reset(Reset), .alive(choose_square), .left(left), .top(top), .rotation(rotation), .xpos(blocks_xpos), .ypos(blocks_ypos), .height(height));
+    // s_shape s_instance(.Clk(Clk), .Reset(Reset), .alive(choose_s), .left(left), .top(top), .rotation(rotation), .xpos(blocks_xpos), .ypos(blocks_ypos), .height(height));
+    // z_shape z_instance(.Clk(Clk), .Reset(Reset), .alive(choose_z), .left(left), .top(top), .rotation(rotation), .xpos(blocks_xpos), .ypos(blocks_ypos), .height(height));
+    // t_shape t_instance(.Clk(Clk), .Reset(Reset), .alive(choose_t), .left(left), .top(top), .rotation(rotation), .xpos(blocks_xpos), .ypos(blocks_ypos), .height(height));
+    // l_shape l_instance(.Clk(Clk), .Reset(Reset), .alive(choose_l), .left(left), .top(top), .rotation(rotation), .xpos(blocks_xpos), .ypos(blocks_ypos), .height(height));
+    // line_shape line_instance(.Clk(Clk), .Reset(Reset), .alive(choose_line), .left(left), .top(top), .rotation(rotation), .xpos(blocks_xpos), .ypos(blocks_ypos), .height(height));
+    // mirror_l_shape mirror_l_instance(.Clk(Clk), .Reset(Reset), .alive(choose_ml), .left(left), .top(top), .rotation(rotation), .xpos(blocks_xpos), .ypos(blocks_ypos), .height(height));
+    // square_shape square_instance(.Clk(Clk), .Reset(Reset), .alive(choose_square), .left(left), .top(top), .rotation(rotation), .xpos(blocks_xpos), .ypos(blocks_ypos), .height(height));
 
-    s_shape s_test_instance(.Clk(Clk), .Reset(Reset), .alive(choose_s), .left(left), .top(top), .rotation(rotation_test), .xpos(blocks_xpos_test), .ypos(blocks_ypos_test), .height(height_test));
-    z_shape z_test_instance(.Clk(Clk), .Reset(Reset), .alive(choose_z), .left(left), .top(top), .rotation(rotation_test), .xpos(blocks_xpos_test), .ypos(blocks_ypos_test), .height(height_test));
-    t_shape t_test_instance(.Clk(Clk), .Reset(Reset), .alive(choose_t), .left(left), .top(top), .rotation(rotation_test), .xpos(blocks_xpos_test), .ypos(blocks_ypos_test), .height(height_test));
-    l_shape l_test_instance(.Clk(Clk), .Reset(Reset), .alive(choose_l), .left(left), .top(top), .rotation(rotation_test), .xpos(blocks_xpos_test), .ypos(blocks_ypos_test), .height(height_test));
-    line_shape line_test_instance(.Clk(Clk), .Reset(Reset), .alive(choose_line), .left(left), .top(top), .rotation(rotation_test), .xpos(blocks_xpos_test), .ypos(blocks_ypos_test), .height(height_test));
-    mirror_l_shape mirror_l_test_instance(.Clk(Clk), .Reset(Reset), .alive(choose_ml), .left(left), .top(top), .rotation(rotation_test), .xpos(blocks_xpos_test), .ypos(blocks_ypos_test), .height(height_test));
-    square_shape square_test_instance(.Clk(Clk), .Reset(Reset), .alive(choose_square), .left(left), .top(top), .rotation(rotation_test), .xpos(blocks_xpos_test), .ypos(blocks_ypos_test), .height(height_test));
+    // s_shape s_test_instance(.Clk(Clk), .Reset(Reset), .alive(choose_s), .left(left), .top(top), .rotation(rotation_test), .xpos(blocks_xpos_test), .ypos(blocks_ypos_test), .height(height_test));
+    // z_shape z_test_instance(.Clk(Clk), .Reset(Reset), .alive(choose_z), .left(left), .top(top), .rotation(rotation_test), .xpos(blocks_xpos_test), .ypos(blocks_ypos_test), .height(height_test));
+    // t_shape t_test_instance(.Clk(Clk), .Reset(Reset), .alive(choose_t), .left(left), .top(top), .rotation(rotation_test), .xpos(blocks_xpos_test), .ypos(blocks_ypos_test), .height(height_test));
+    // l_shape l_test_instance(.Clk(Clk), .Reset(Reset), .alive(choose_l), .left(left), .top(top), .rotation(rotation_test), .xpos(blocks_xpos_test), .ypos(blocks_ypos_test), .height(height_test));
+    // line_shape line_test_instance(.Clk(Clk), .Reset(Reset), .alive(choose_line), .left(left), .top(top), .rotation(rotation_test), .xpos(blocks_xpos_test), .ypos(blocks_ypos_test), .height(height_test));
+    // mirror_l_shape mirror_l_test_instance(.Clk(Clk), .Reset(Reset), .alive(choose_ml), .left(left), .top(top), .rotation(rotation_test), .xpos(blocks_xpos_test), .ypos(blocks_ypos_test), .height(height_test));
+    // square_shape square_test_instance(.Clk(Clk), .Reset(Reset), .alive(choose_square), .left(left), .top(top), .rotation(rotation_test), .xpos(blocks_xpos_test), .ypos(blocks_ypos_test), .height(height_test));
 
     //////// Do not modify the always_ff blocks. ////////
     // Detect rising edge of frame_clk
@@ -101,129 +101,129 @@ module  shape ( input         Clk,                // 50 MHz clock
 
 
 
-        if (frame_clk_rising_edge)
-        begin
+//         if (frame_clk_rising_edge)
+//         begin
 
 
-        /*
-            if( Shape_Y_Pos + Shape_Size >= Shape_Y_Max )  // Shape is at the bottom edge, BOUNCE!
-                Shape_Y_Motion_in = (~(Shape_Y_Step) + 1'b1);  // 2's complement.  
-            else if ( Shape_Y_Pos <= Shape_Y_Min + Shape_Size )  // Shape is at the top edge, BOUNCE!
-                Shape_Y_Motion_in = Shape_Y_Step;
-            if( Shape_X_Pos + Shape_Size >= Shape_X_Max )  // Shape is at the right edge, BOUNCE!
-                Shape_X_Motion_in = (~(Shape_X_Step) + 1'b1);  // 2's complement.  
-            else if ( Shape_X_Pos <= Shape_X_Min + Shape_Size )  // Shape is at the left edge, BOUNCE!
-                Shape_X_Motion_in = Shape_X_Step;
-*/
+//         /*
+//             if( Shape_Y_Pos + Shape_Size >= Shape_Y_Max )  // Shape is at the bottom edge, BOUNCE!
+//                 Shape_Y_Motion_in = (~(Shape_Y_Step) + 1'b1);  // 2's complement.  
+//             else if ( Shape_Y_Pos <= Shape_Y_Min + Shape_Size )  // Shape is at the top edge, BOUNCE!
+//                 Shape_Y_Motion_in = Shape_Y_Step;
+//             if( Shape_X_Pos + Shape_Size >= Shape_X_Max )  // Shape is at the right edge, BOUNCE!
+//                 Shape_X_Motion_in = (~(Shape_X_Step) + 1'b1);  // 2's complement.  
+//             else if ( Shape_X_Pos <= Shape_X_Min + Shape_Size )  // Shape is at the left edge, BOUNCE!
+//                 Shape_X_Motion_in = Shape_X_Step;
+// */
 
 
 
-            case(keycode)
-                8'h04 : 
-                    begin
-                        Shape_X_Motion_in = (~(Shape_X_Step) + 1'b1);   //left
-                        Shape_Y_Motion_in = Shape_Y_Step;
-                    end
-                8'h07 : 
-                    begin
-                        Shape_X_Motion_in = Shape_X_Step;    //right
-                        Shape_Y_Motion_in = Shape_Y_Step;
-                    end
-                8'h16 : 
-                    begin
-                        Shape_Y_Motion_in = Shape_Y_keyStep;    //down
-                        Shape_X_Motion_in = 10'h000;
-                    end
+//             case(keycode)
+//                 8'h04 : 
+//                     begin
+//                         Shape_X_Motion_in = (~(Shape_X_Step) + 1'b1);   //left
+//                         Shape_Y_Motion_in = Shape_Y_Step;
+//                     end
+//                 8'h07 : 
+//                     begin
+//                         Shape_X_Motion_in = Shape_X_Step;    //right
+//                         Shape_Y_Motion_in = Shape_Y_Step;
+//                     end
+//                 8'h16 : 
+//                     begin
+//                         Shape_Y_Motion_in = Shape_Y_keyStep;    //down
+//                         Shape_X_Motion_in = 10'h000;
+//                     end
 
-                8'h1d :                                         // z, rotate left
-                    begin
-                        rotation_test = rotation_in - 1'd1;
+//                 8'h1d :                                         // z, rotate left
+//                     begin
+//                         rotation_test = rotation_in - 1'd1;
 
-                        if( Shape_Y_Pos_in + (height_test * Shape_X_Step) >= Shape_Y_Max )  // Shape is at the bottom edge, stop!
-                        begin
-                            rotation_in = rotation;
-                        end
+//                         if( Shape_Y_Pos_in + (height_test * Shape_X_Step) >= Shape_Y_Max )  // Shape is at the bottom edge, stop!
+//                         begin
+//                             rotation_in = rotation;
+//                         end
 
-                        else if( Shape_X_Pos_in + Shape_Size_test >= Shape_X_Max )  // Shape is at the right edge, stop!
-                        begin
-                            rotation_in = rotation;
-                        end
+//                         else if( Shape_X_Pos_in + Shape_Size_test >= Shape_X_Max )  // Shape is at the right edge, stop!
+//                         begin
+//                             rotation_in = rotation;
+//                         end
 
-                        else if ( Shape_X_Pos_in <= Shape_X_Min)  // Shape is at the left edge, stop!
-                        begin
-                            rotation_in = rotation;
-                        end
+//                         else if ( Shape_X_Pos_in <= Shape_X_Min)  // Shape is at the left edge, stop!
+//                         begin
+//                             rotation_in = rotation;
+//                         end
 
-                        else
-                        begin
-                            rotation_in = rotation_in - 1'd1;
-                        end
+//                         else
+//                         begin
+//                             rotation_in = rotation_in - 1'd1;
+//                         end
 
-                    end
+//                     end
 
-                8'h06 :                                         // c, rotate right
-                    begin
-                        rotation_test = rotation_in + 1'd1;
+//                 8'h06 :                                         // c, rotate right
+//                     begin
+//                         rotation_test = rotation_in + 1'd1;
 
-                        if( Shape_Y_Pos_in + (height_test * Shape_X_Step) >= Shape_Y_Max )  // Shape is at the bottom edge, stop!
-                        begin
-                            rotation_in = rotation;
-                        end
+//                         if( Shape_Y_Pos_in + (height_test * Shape_X_Step) >= Shape_Y_Max )  // Shape is at the bottom edge, stop!
+//                         begin
+//                             rotation_in = rotation;
+//                         end
 
-                        else if( Shape_X_Pos_in + Shape_Size_test >= Shape_X_Max )  // Shape is at the right edge, stop!
-                        begin
-                            rotation_in = rotation;
-                        end
+//                         else if( Shape_X_Pos_in + Shape_Size_test >= Shape_X_Max )  // Shape is at the right edge, stop!
+//                         begin
+//                             rotation_in = rotation;
+//                         end
 
-                        else if ( Shape_X_Pos_in <= Shape_X_Min)  // Shape is at the left edge, stop!
-                        begin
-                            rotation_in = rotation;
-                        end
+//                         else if ( Shape_X_Pos_in <= Shape_X_Min)  // Shape is at the left edge, stop!
+//                         begin
+//                             rotation_in = rotation;
+//                         end
 
-                        else
-                        begin
-                            rotation_in = rotation_in + 1'd1;
-                        end
+//                         else
+//                         begin
+//                             rotation_in = rotation_in + 1'd1;
+//                         end
 
-                    end
+//                     end
 
-					default:	
-                    begin  
-                        Shape_Y_Motion_in = Shape_Y_Step;   
-                        Shape_X_Motion_in = 10'h000;
-                    end
-            endcase
+// 					default:	
+//                     begin  
+//                         Shape_Y_Motion_in = Shape_Y_Step;   
+//                         Shape_X_Motion_in = 10'h000;
+//                     end
+//             endcase
 
-            // Update the Shape's position with its motion
-            Shape_X_Pos_in_temp = Shape_X_Pos + Shape_X_Motion;
-            Shape_Y_Pos_in_temp = Shape_Y_Pos + Shape_Y_Motion;
+//             // Update the Shape's position with its motion
+//             // Shape_X_Pos_in_temp = Shape_X_Pos + Shape_X_Motion;
+//             // Shape_Y_Pos_in_temp = Shape_Y_Pos + Shape_Y_Motion;
 
-            if( Shape_Y_Pos_in_temp + (height * Shape_X_Step) >= Shape_Y_Max )  // Shape is at the bottom edge, stop!
-            begin
-                Shape_Y_Motion_in = 10'h000;  // 2's complement.  
-                Shape_Y_Pos_in = Shape_Y_Max;
-            end
-            else
-            begin
-                Shape_Y_Motion_in = Shape_Y_Step;  // 2's complement.  
-                Shape_Y_Pos_in = Shape_Y_Pos + Shape_Y_Motion;
-            end
+//             // if( Shape_Y_Pos_in_temp + (height * Shape_X_Step) >= Shape_Y_Max )  // Shape is at the bottom edge, stop!
+//             // begin
+//             //     Shape_Y_Motion_in = 10'h000;  // 2's complement.  
+//             //     Shape_Y_Pos_in = Shape_Y_Max - (height * Shape_X_Step);
+//             // end
+//             // else
+//             // begin
+//             //     Shape_Y_Motion_in = Shape_Y_Step;  // 2's complement.  
+//             //     Shape_Y_Pos_in = Shape_Y_Pos + Shape_Y_Motion;
+//             // end
 
-            if( Shape_X_Pos_in_temp + Shape_Size >= Shape_X_Max )  // Shape is at the right edge, stop!
-            begin
-                Shape_X_Motion_in = 10'h000;  // 2's complement.  
-                Shape_X_Pos_in = Shape_X_Max;
-            end
-            else if ( Shape_X_Pos_in_temp <= Shape_X_Min)  // Shape is at the left edge, stop!
-            begin
-                Shape_X_Motion_in = 10'h000;
-                Shape_X_Pos_in = Shape_X_Min;
-            end
-            else
-            begin
-                Shape_X_Pos_in = Shape_X_Pos + Shape_X_Motion;
-            end
-        end
+//             // if( Shape_X_Pos_in_temp + Shape_Size >= Shape_X_Max )  // Shape is at the right edge, stop!
+//             // begin
+//             //     Shape_X_Motion_in = 10'h000;  // 2's complement.  
+//             //     Shape_X_Pos_in = Shape_X_Max;
+//             // end
+//             // else if ( Shape_X_Pos_in_temp <= Shape_X_Min)  // Shape is at the left edge, stop!
+//             // begin
+//             //     Shape_X_Motion_in = 10'h000;
+//             //     Shape_X_Pos_in = Shape_X_Min;
+//             // end
+//             // else
+//             // begin
+//             //     Shape_X_Pos_in = Shape_X_Pos + Shape_X_Motion;
+//             // end
+//         end
         
         /**************************************************************************************
             ATTENTION! Please answer the following quesiton in your lab report! Points will be allocated for the answers!
