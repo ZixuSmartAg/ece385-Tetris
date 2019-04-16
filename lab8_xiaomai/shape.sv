@@ -10,7 +10,7 @@ module  shape ( input         Clk,                // 50 MHz clock
                              frame_clk,          // The clock indicating a new frame (~60Hz)
                input [9:0]   DrawX, DrawY,       // Current pixel coordinates
                input [7:0]   keycode,
-               input logic   choose_s, choose_z, choose_t, choose_l, choose_line, choose_ml, choose_square,
+               input [6:0]   shape_type,
                output [4:0] blocks_xpos[3:0],
                output [4:0] blocks_ypos[3:0]
               );
@@ -36,6 +36,8 @@ module  shape ( input         Clk,                // 50 MHz clock
     logic [4:0] height, height_test;
     logic [4:0] blocks_xpos_test[3:0], blocks_ypos_test[3:0];
     
+    tetromino tetromino_instance(.Clk(Clk), .Reset(Reset), .shape_type(shape_type), .left(left), .top(top), .rotation(rotation), .xpos(blocks_xpos), .ypos(blocks_ypos), .height(height));
+
     // s_shape s_instance(.Clk(Clk), .Reset(Reset), .alive(choose_s), .left(left), .top(top), .rotation(rotation), .xpos(blocks_xpos), .ypos(blocks_ypos), .height(height));
     // z_shape z_instance(.Clk(Clk), .Reset(Reset), .alive(choose_z), .left(left), .top(top), .rotation(rotation), .xpos(blocks_xpos), .ypos(blocks_ypos), .height(height));
     // t_shape t_instance(.Clk(Clk), .Reset(Reset), .alive(choose_t), .left(left), .top(top), .rotation(rotation), .xpos(blocks_xpos), .ypos(blocks_ypos), .height(height));
