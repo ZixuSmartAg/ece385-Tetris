@@ -31,7 +31,7 @@ module  shape ( input         Clk,                // 50 MHz clock
     logic [1:0] rotation, rotation_test;
     logic [1:0] rotation_in;
     logic [4:0] left, top;
-    logic [9:0] Shape_Size;
+    logic [9:0] Shape_Size, Shape_Size_test;
     logic [4:0] height, height_test;
     logic [4:0] blocks_xpos_test[3:0], blocks_ypos_test[3:0];
     
@@ -201,14 +201,20 @@ module  shape ( input         Clk,                // 50 MHz clock
             Shape_Y_Pos_in = Shape_Y_Pos + Shape_Y_Motion;
 
             if( Shape_Y_Pos_in + (height * Shape_X_Step) >= Shape_Y_Max )  // Shape is at the bottom edge, stop!
+            begin
                 Shape_Y_Motion_in = 10'h000;  // 2's complement.  
                 Shape_Y_Pos_in = Shape_Y_Max;
+            end
             if( Shape_X_Pos_in + Shape_Size >= Shape_X_Max )  // Shape is at the right edge, stop!
+            begin
                 Shape_X_Motion_in = 10'h000;  // 2's complement.  
                 Shape_X_Pos_in = Shape_X_Max;
+            end
             else if ( Shape_X_Pos_in <= Shape_X_Min)  // Shape is at the left edge, stop!
+            begin
                 Shape_X_Motion_in = 10'h000;
                 Shape_X_Pos_in = Shape_X_Min;
+            end
         end
         
         /**************************************************************************************

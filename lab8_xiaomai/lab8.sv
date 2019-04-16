@@ -48,6 +48,9 @@ module lab8( input               CLOCK_50,
     
     logic Reset_h, Clk;
     logic [7:0] keycode;
+    logic choose_s, choose_z, choose_t, choose_l, choose_line, choose_ml, choose_square;
+    logic [4:0] x [3:0];
+    logic [4:0] y [3:0];
     
     assign Clk = CLOCK_50;
     always_ff @ (posedge Clk) begin
@@ -57,7 +60,7 @@ module lab8( input               CLOCK_50,
     logic [1:0] hpi_addr;
     logic [15:0] hpi_data_in, hpi_data_out;
     logic hpi_r, hpi_w, hpi_cs, hpi_reset;
-    logic is_ball;
+    logic is_shape, is_boundary;
     logic [9:0] DrawX, DrawY; 
     
     // Interface between NIOS II and EZ-OTG chip
@@ -105,6 +108,9 @@ module lab8( input               CLOCK_50,
                              .otg_hpi_reset_export(hpi_reset)
     );
     
+  
+
+
     // Use PLL to generate the 25MHZ VGA_CLK.
     // You will have to generate it on your own in simulation.
     vga_clk vga_clk_instance(.inclk0(Clk), .c0(VGA_CLK));
@@ -115,13 +121,17 @@ module lab8( input               CLOCK_50,
                                             .VGA_SYNC_N(VGA_SYNC_N),.DrawX(DrawX), .DrawY(DrawY));      //draw x\y are outputs
     
     // Which signal should be frame_clk?
-    ball ball_instance(.Clk(Clk), .Reset(Reset_h),              
+    shape shape_instance(.Clk(Clk), .Reset(Reset_h),              
                         .frame_clk(VGA_VS),.DrawX(DrawX),.DrawY(DrawY),           //vertical clock
-                        .keycode(keycode),.is_ball(is_ball));
+                        .keycode(keycode),.choose_s(choose_s), .choose_z(choose_z),
+                        .choose_t(choose_t), .choose_l(choose_l), .choose_line(choose_line), .choose_ml(choose_ml), .choose_square(choose_square),
+                        .blocks_xpos(x), .blocks_ypos(y));
     
-    color_mapper color_instance(.is_ball(is_ball), .DrawX(DrawX), .DrawY(DrawY),    //draw x\y are inputs
+    color_mapper color_instance(.is_shape(is_shape), .shape({choose_s, choose_z, choose_t, choose_l, choose_line, choose_ml, choose_square}),
+                                .is_boudnary(is_boudnary), .DrawX(DrawX), .DrawY(DrawY),    //draw x\y are inputs
                                 .VGA_R(VGA_R), .VGA_G(VGA_G), .VGA_B(VGA_B));
-    
+
+
     // Display keycode on hex display
     HexDriver hex_inst_0 (keycode[3:0], HEX0);
     HexDriver hex_inst_1 (keycode[7:4], HEX1);

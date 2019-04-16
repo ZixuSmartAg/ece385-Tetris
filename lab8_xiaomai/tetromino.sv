@@ -76,7 +76,7 @@ endmodule
 
 module  z_shape ( input  Clk,
                          Reset,
-                  intput logic alive,
+                  input logic alive,
                   input [4:0] left, top,  
                   input [1:0]   rotation,
                   output [4:0] xpos[4:0],
@@ -152,7 +152,7 @@ endmodule
 
 module  t_shape ( input  Clk,
                          Reset,
-                  intput logic alive,
+                  input logic alive,
                   input [4:0] left, top,  
                   input [1:0]   rotation,
                   output [4:0] xpos[4:0],
@@ -229,7 +229,7 @@ endmodule
 
 module  l_shape ( input  Clk,
                          Reset,
-                  intput logic alive,
+                  input logic alive,
                   input [4:0] left, top,  
                   input [1:0]   rotation,
                   output [4:0] xpos[4:0],
@@ -305,7 +305,7 @@ endmodule
 
 module  line_shape ( input  Clk,
                          Reset,
-                  intput logic alive,
+                  input logic alive,
                   input [4:0] left, top,  
                   input [1:0]   rotation,
                   output [4:0] xpos[4:0],
@@ -381,7 +381,7 @@ endmodule
 
 module  mirror_l_shape ( input  Clk,
                          Reset,
-                  intput logic alive,
+                  input logic alive,
                   input [4:0] left, top,  
                   input [1:0]   rotation,
                   output [4:0] xpos[4:0],
@@ -457,7 +457,7 @@ endmodule
 
 module  square_shape ( input  Clk,
                          Reset,
-                  intput logic alive,
+                  input logic alive,
                   input [4:0] left, top,  
                   input [1:0]   rotation,
                   output [4:0] xpos[4:0],
