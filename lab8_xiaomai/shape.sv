@@ -29,19 +29,28 @@ module  shape ( input         Clk,                // 50 MHz clock
     
     logic [9:0] Shape_X_Pos, Shape_X_Motion, Shape_Y_Pos, Shape_Y_Motion;
     logic [9:0] Shape_X_Pos_in, Shape_X_Motion_in, Shape_Y_Pos_in, Shape_Y_Motion_in;
-    logic [1:0] rotation;
+    logic [1:0] rotation, rotation_test;
     logic [1:0] rotation_in;
     logic [4:0] left, top;
     logic [9:0] Shape_Size;
-    logic [4:0] height;
+    logic [4:0] height, height_test;
+    logic [4:0] blocks_xpos_test[3:0], blocks_ypos_test[3:0];
     
-    s_shape(.Clk, .Reset, .alive(choose_s), .left, .top, .rotation, .xpos(blocks_xpos), .ypos(blocks_ypos), .height);
-    z_shape(.Clk, .Reset, .alive(choose_z), .left, .top, .rotation, .xpos(blocks_xpos), .ypos(blocks_ypos), .height);
-    t_shape(.Clk, .Reset, .alive(choose_t), .left, .top, .rotation, .xpos(blocks_xpos), .ypos(blocks_ypos), .height);
-    l_shape(.Clk, .Reset, .alive(choose_l), .left, .top, .rotation, .xpos(blocks_xpos), .ypos(blocks_ypos), .height);
-    line_shape(.Clk, .Reset, .alive(choose_line), .left, .top, .rotation, .xpos(blocks_xpos), .ypos(blocks_ypos), .height);
-    mirror_l_shape(.Clk, .Reset, .alive(choose_ml), .left, .top, .rotation, .xpos(blocks_xpos), .ypos(blocks_ypos), .height);
-    square_shape(.Clk, .Reset, .alive(choose_square), .left, .top, .rotation, .xpos(blocks_xpos), .ypos(blocks_ypos), .height);
+    s_shape s_instance(.Clk, .Reset, .alive(choose_s), .left, .top, .rotation, .xpos(blocks_xpos), .ypos(blocks_ypos), .height);
+    z_shape z_instance(.Clk, .Reset, .alive(choose_z), .left, .top, .rotation, .xpos(blocks_xpos), .ypos(blocks_ypos), .height);
+    t_shape t_instance(.Clk, .Reset, .alive(choose_t), .left, .top, .rotation, .xpos(blocks_xpos), .ypos(blocks_ypos), .height);
+    l_shape l_instance(.Clk, .Reset, .alive(choose_l), .left, .top, .rotation, .xpos(blocks_xpos), .ypos(blocks_ypos), .height);
+    line_shape line_instance(.Clk, .Reset, .alive(choose_line), .left, .top, .rotation, .xpos(blocks_xpos), .ypos(blocks_ypos), .height);
+    mirror_l_shape mirror_l_instance(.Clk, .Reset, .alive(choose_ml), .left, .top, .rotation, .xpos(blocks_xpos), .ypos(blocks_ypos), .height);
+    square_shape square_instance(.Clk, .Reset, .alive(choose_square), .left, .top, .rotation, .xpos(blocks_xpos), .ypos(blocks_ypos), .height);
+
+    s_shape s_test_instance(.Clk, .Reset, .alive(choose_s), .left, .top, .rotation(rotation_test), .xpos(blocks_xpos_test), .ypos(blocks_ypos_test), .height(height_test));
+    z_shape z_test_instance(.Clk, .Reset, .alive(choose_z), .left, .top, .rotation(rotation_test), .xpos(blocks_xpos_test), .ypos(blocks_ypos_test), .height(height_test));
+    t_shape t_test_instance(.Clk, .Reset, .alive(choose_t), .left, .top, .rotation(rotation_test), .xpos(blocks_xpos_test), .ypos(blocks_ypos_test), .height(height_test));
+    l_shape l_test_instance(.Clk, .Reset, .alive(choose_l), .left, .top, .rotation(rotation_test), .xpos(blocks_xpos_test), .ypos(blocks_ypos_test), .height(height_test));
+    line_shape line_test_instance(.Clk, .Reset, .alive(choose_line), .left, .top, .rotation(rotation_test), .xpos(blocks_xpos_test), .ypos(blocks_ypos_test), .height(height_test));
+    mirror_l_shape mirror_l_test_instance(.Clk, .Reset, .alive(choose_ml), .left, .top, .rotation(rotation_test), .xpos(blocks_xpos_test), .ypos(blocks_ypos_test), .height(height_test));
+    square_shape square_test_instance(.Clk, .Reset, .alive(choose_square), .left, .top, .rotation(rotation_test), .xpos(blocks_xpos_test), .ypos(blocks_ypos_test), .height(height_test));
 
     //////// Do not modify the always_ff blocks. ////////
     // Detect rising edge of frame_clk
@@ -60,6 +69,7 @@ module  shape ( input         Clk,                // 50 MHz clock
             Shape_X_Motion <= 10'd0;
             Shape_Y_Motion <= Shape_Y_Step;
             rotation <= rotation_init;
+            rotation_test <= rotation_init;
         end
         else
         begin
@@ -68,6 +78,7 @@ module  shape ( input         Clk,                // 50 MHz clock
             Shape_X_Motion <= Shape_X_Motion_in;
             Shape_Y_Motion <= Shape_Y_Motion_in;
             rotation <= rotation_in;
+            rotation_test <= rotation_in;
         end
     end
     
@@ -78,9 +89,12 @@ module  shape ( input         Clk,                // 50 MHz clock
         Shape_Y_Pos_in = Shape_Y_Pos;
         Shape_X_Motion_in = Shape_X_Motion;
         Shape_Y_Motion_in = Shape_Y_Motion;
+        rotation_in = rotation;
+        rotation_test = rotation;
         left = (Shape_X_Pos - Shape_X_Min) / Shape_X_Step;
         top = (Shape_Y_Pos - Shape_Y_Min) / Shape_Y_keyStep;
         Shape_Size = (blocks_xpos[3] - left) * Shape_X_Step;
+        Shape_Size_test = (blocks_xpos_test[3] - left) * Shape_X_Step;
 
         // Update position and motion only at rising edge of frame clock
         // Be careful when using comparators with "logic" datatype because compiler treats 
@@ -123,6 +137,59 @@ module  shape ( input         Clk,                // 50 MHz clock
                         Shape_Y_Motion_in = Shape_Y_keyStep;    //down
                         Shape_X_Motion_in = 10'h000;
                     end
+
+                8'h1d :                                         // z, rotate left
+                    begin
+                        rotation_test = rotation_in - 1'd1;
+
+                        if( Shape_Y_Pos_in + (height_test * Shape_X_Step) >= Shape_Y_Max )  // Shape is at the bottom edge, stop!
+                        begin
+                            rotation_in = rotation;
+                        end
+
+                        else if( Shape_X_Pos_in + Shape_Size_test >= Shape_X_Max )  // Shape is at the right edge, stop!
+                        begin
+                            rotation_in = rotation;
+                        end
+
+                        else if ( Shape_X_Pos_in <= Shape_X_Min)  // Shape is at the left edge, stop!
+                        begin
+                            rotation_in = rotation;
+                        end
+
+                        else
+                        begin
+                            rotation_in = rotation_test;
+                        end
+
+                    end
+
+                8'h06 :                                         // c, rotate right
+                    begin
+                        rotation_test = rotation_in + 1'd1;
+
+                        if( Shape_Y_Pos_in + (height_test * Shape_X_Step) >= Shape_Y_Max )  // Shape is at the bottom edge, stop!
+                        begin
+                            rotation_in = rotation;
+                        end
+
+                        else if( Shape_X_Pos_in + Shape_Size_test >= Shape_X_Max )  // Shape is at the right edge, stop!
+                        begin
+                            rotation_in = rotation;
+                        end
+
+                        else if ( Shape_X_Pos_in <= Shape_X_Min)  // Shape is at the left edge, stop!
+                        begin
+                            rotation_in = rotation;
+                        end
+
+                        else
+                        begin
+                            rotation_in = rotation_test;
+                        end
+
+                    end
+
 					default:	
                     begin  
                         Shape_Y_Motion_in = Shape_Y_Step;   
