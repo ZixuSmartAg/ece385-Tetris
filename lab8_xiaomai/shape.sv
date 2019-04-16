@@ -69,7 +69,6 @@ module  shape ( input         Clk,                // 50 MHz clock
             Shape_X_Motion <= 10'd0;
             Shape_Y_Motion <= Shape_Y_Step;
             rotation <= rotation_init;
-            rotation_test <= rotation_init;
         end
         else
         begin
@@ -78,7 +77,6 @@ module  shape ( input         Clk,                // 50 MHz clock
             Shape_X_Motion <= Shape_X_Motion_in;
             Shape_Y_Motion <= Shape_Y_Motion_in;
             rotation <= rotation_in;
-            rotation_test <= rotation_in;
         end
     end
     
@@ -158,7 +156,7 @@ module  shape ( input         Clk,                // 50 MHz clock
 
                         else
                         begin
-                            rotation_in = rotation_test;
+                            rotation_in = rotation_in - 1'd1;
                         end
 
                     end
@@ -184,7 +182,7 @@ module  shape ( input         Clk,                // 50 MHz clock
 
                         else
                         begin
-                            rotation_in = rotation_test;
+                            rotation_in = rotation_in + 1'd1;
                         end
 
                     end
