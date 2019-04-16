@@ -11,7 +11,6 @@ module  shape ( input         Clk,                // 50 MHz clock
                input [9:0]   DrawX, DrawY,       // Current pixel coordinates
                input [7:0]   keycode,
                input logic   choose_s, choose_z, choose_t, choose_l, choose_line, choose_ml, choose_square,
-               output logic  is_Shape             // Whether current pixel belongs to Shape or background
                output [4:0] blocks_xpos[3:0],
                output [4:0] blocks_ypos[3:0]
               );
@@ -223,23 +222,6 @@ module  shape ( input         Clk,                // 50 MHz clock
               How will this impact behavior of the Shape during a bounce, and how might that interact with a response to a keypress?
               Give an answer in your Post-Lab.
         **************************************************************************************/
-    end
-    
-    // Compute whether the pixel corresponds to Shape or background
-    /* Since the multiplicants are required to be signed, we have to first cast them
-       from logic to int (signed by default) before they are multiplied. */
-    int DistX, DistY, Size;
-    assign DistX = DrawX - Shape_X_Pos;
-    assign DistY = DrawY - Shape_Y_Pos;
-    assign Size = Shape_Size;
-    always_comb begin
-        if ( ( DistX*DistX + DistY*DistY) <= (Size*Size) ) 
-            is_Shape = 1'b1;
-        else
-            is_Shape = 1'b0;
-        /* The Shape's (pixelated) circle is generated using the standard circle formula.  Note that while 
-           the single line is quite powerful descriptively, it causes the synthesis tool to use up three
-           of the 12 available multipliers on the chip! */
     end
     
 endmodule
