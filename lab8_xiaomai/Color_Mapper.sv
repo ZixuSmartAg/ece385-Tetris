@@ -14,13 +14,16 @@
 //-------------------------------------------------------------------------
 
 // color_mapper: Decide which color to be output to VGA for each pixel.
-module  color_mapper ( input              is_ball,            // Whether current pixel belongs to ball 
-                                                              //   or background (computed in ball.sv)
+module  color_mapper ( input              is_shape,            // Whether current pixel belongs to ball 
+                       input              is_boundary                         //   or background (computed in ball.sv)
                        input        [9:0] DrawX, DrawY,       // Current pixel coordinates
                        output logic [7:0] VGA_R, VGA_G, VGA_B // VGA RGB output
                      );
     
     logic [7:0] Red, Green, Blue;
+    logic [7:0] blockRed, blockGreen, blockBlue;
+
+    block_color blockcolors(.*);
     
     // Output colors to VGA
     assign VGA_R = Red;
@@ -30,20 +33,26 @@ module  color_mapper ( input              is_ball,            // Whether current
     // Assign color based on is_ball signal
     always_comb
     begin
-        if (is_ball == 1'b1) 
-        begin
-            // White ball
-            Red = 8'hff;
-            Green = 8'hff;
-            Blue = 8'hff;
-        end
-        else 
-        begin
-            // Background with nice color gradient
-            Red = 8'h3f; 
-            Green = 8'h00;
-            Blue = 8'h7f - {1'b0, DrawX[9:3]};
-        end
+        if (is_shape == 1'b1) 
+            begin
+                // White ball
+                Red = blockRed;
+                Green = blockGreen;
+                Blue = blockBlue;
+            end
+        else if (is_boundary)
+            begin
+                Red = 8'h00;
+                Green = 8'h00;
+                Blue = 8'h00;
+            end
+        else
+            begin
+                // Background with nice color gradient
+                Red = 8'h3f; 
+                Green = 8'h00;
+                Blue = 8'h7f - {1'b0, DrawX[9:3]};
+            end
     end 
     
 endmodule
