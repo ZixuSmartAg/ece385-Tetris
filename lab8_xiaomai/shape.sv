@@ -35,21 +35,21 @@ module  shape ( input         Clk,                // 50 MHz clock
     logic [4:0] height, height_test;
     logic [4:0] blocks_xpos_test[3:0], blocks_ypos_test[3:0];
     
-    s_shape s_instance(.Clk, .Reset, .alive(choose_s), .left, .top, .rotation, .xpos(blocks_xpos), .ypos(blocks_ypos), .height);
-    z_shape z_instance(.Clk, .Reset, .alive(choose_z), .left, .top, .rotation, .xpos(blocks_xpos), .ypos(blocks_ypos), .height);
-    t_shape t_instance(.Clk, .Reset, .alive(choose_t), .left, .top, .rotation, .xpos(blocks_xpos), .ypos(blocks_ypos), .height);
-    l_shape l_instance(.Clk, .Reset, .alive(choose_l), .left, .top, .rotation, .xpos(blocks_xpos), .ypos(blocks_ypos), .height);
-    line_shape line_instance(.Clk, .Reset, .alive(choose_line), .left, .top, .rotation, .xpos(blocks_xpos), .ypos(blocks_ypos), .height);
-    mirror_l_shape mirror_l_instance(.Clk, .Reset, .alive(choose_ml), .left, .top, .rotation, .xpos(blocks_xpos), .ypos(blocks_ypos), .height);
-    square_shape square_instance(.Clk, .Reset, .alive(choose_square), .left, .top, .rotation, .xpos(blocks_xpos), .ypos(blocks_ypos), .height);
+    s_shape s_instance(.Clk(Clk), .Reset(Reset), .alive(choose_s), .left(left), .top(top), .rotation(rotation), .xpos(blocks_xpos), .ypos(blocks_ypos), .height(height));
+    z_shape z_instance(.Clk(Clk), .Reset(Reset), .alive(choose_z), .left(left), .top(top), .rotation(rotation), .xpos(blocks_xpos), .ypos(blocks_ypos), .height(height));
+    t_shape t_instance(.Clk(Clk), .Reset(Reset), .alive(choose_t), .left(left), .top(top), .rotation(rotation), .xpos(blocks_xpos), .ypos(blocks_ypos), .height(height));
+    l_shape l_instance(.Clk(Clk), .Reset(Reset), .alive(choose_l), .left(left), .top(top), .rotation(rotation), .xpos(blocks_xpos), .ypos(blocks_ypos), .height(height));
+    line_shape line_instance(.Clk(Clk), .Reset(Reset), .alive(choose_line), .left(left), .top(top), .rotation(rotation), .xpos(blocks_xpos), .ypos(blocks_ypos), .height(height));
+    mirror_l_shape mirror_l_instance(.Clk(Clk), .Reset(Reset), .alive(choose_ml), .left(left), .top(top), .rotation(rotation), .xpos(blocks_xpos), .ypos(blocks_ypos), .height(height));
+    square_shape square_instance(.Clk(Clk), .Reset(Reset), .alive(choose_square), .left(left), .top(top), .rotation(rotation), .xpos(blocks_xpos), .ypos(blocks_ypos), .height(height));
 
-    s_shape s_test_instance(.Clk, .Reset, .alive(choose_s), .left, .top, .rotation(rotation_test), .xpos(blocks_xpos_test), .ypos(blocks_ypos_test), .height(height_test));
-    z_shape z_test_instance(.Clk, .Reset, .alive(choose_z), .left, .top, .rotation(rotation_test), .xpos(blocks_xpos_test), .ypos(blocks_ypos_test), .height(height_test));
-    t_shape t_test_instance(.Clk, .Reset, .alive(choose_t), .left, .top, .rotation(rotation_test), .xpos(blocks_xpos_test), .ypos(blocks_ypos_test), .height(height_test));
-    l_shape l_test_instance(.Clk, .Reset, .alive(choose_l), .left, .top, .rotation(rotation_test), .xpos(blocks_xpos_test), .ypos(blocks_ypos_test), .height(height_test));
-    line_shape line_test_instance(.Clk, .Reset, .alive(choose_line), .left, .top, .rotation(rotation_test), .xpos(blocks_xpos_test), .ypos(blocks_ypos_test), .height(height_test));
-    mirror_l_shape mirror_l_test_instance(.Clk, .Reset, .alive(choose_ml), .left, .top, .rotation(rotation_test), .xpos(blocks_xpos_test), .ypos(blocks_ypos_test), .height(height_test));
-    square_shape square_test_instance(.Clk, .Reset, .alive(choose_square), .left, .top, .rotation(rotation_test), .xpos(blocks_xpos_test), .ypos(blocks_ypos_test), .height(height_test));
+    s_shape s_test_instance(.Clk(Clk), .Reset(Reset), .alive(choose_s), .left(left), .top(top), .rotation(rotation_test), .xpos(blocks_xpos_test), .ypos(blocks_ypos_test), .height(height)(height_test));
+    z_shape z_test_instance(.Clk(Clk), .Reset(Reset), .alive(choose_z), .left(left), .top(top), .rotation(rotation_test), .xpos(blocks_xpos_test), .ypos(blocks_ypos_test), .height(height)(height_test));
+    t_shape t_test_instance(.Clk(Clk), .Reset(Reset), .alive(choose_t), .left(left), .top(top), .rotation(rotation_test), .xpos(blocks_xpos_test), .ypos(blocks_ypos_test), .height(height)(height_test));
+    l_shape l_test_instance(.Clk(Clk), .Reset(Reset), .alive(choose_l), .left(left), .top(top), .rotation(rotation_test), .xpos(blocks_xpos_test), .ypos(blocks_ypos_test), .height(height)(height_test));
+    line_shape line_test_instance(.Clk(Clk), .Reset(Reset), .alive(choose_line), .left(left), .top(top), .rotation(rotation_test), .xpos(blocks_xpos_test), .ypos(blocks_ypos_test), .height(height)(height_test));
+    mirror_l_shape mirror_l_test_instance(.Clk(Clk), .Reset(Reset), .alive(choose_ml), .left(left), .top(top), .rotation(rotation_test), .xpos(blocks_xpos_test), .ypos(blocks_ypos_test), .height(height)(height_test));
+    square_shape square_test_instance(.Clk(Clk), .Reset(Reset), .alive(choose_square), .left(left), .top(top), .rotation(rotation_test), .xpos(blocks_xpos_test), .ypos(blocks_ypos_test), .height(height)(height_test));
 
     //////// Do not modify the always_ff blocks. ////////
     // Detect rising edge of frame_clk
