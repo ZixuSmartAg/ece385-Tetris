@@ -4,7 +4,8 @@ module  s_shape ( input  Clk,
                   input [4:0] left, top,  
                   input [1:0]   rotation,
                   output [4:0] xpos[3:0],
-                  output [4:0] ypos[3:0]
+                  output [4:0] ypos[3:0],
+                  output [4:0] height
                   );
 
     always_comb
@@ -22,6 +23,7 @@ module  s_shape ( input  Clk,
                         ypos[2] = top + 1'b1; 
                         xpos[3] = left + 2'b10; 
                         ypos[3] = top; 
+                        height = 2'b10;
                     end
                 2'b01 : 
                     begin
@@ -33,6 +35,7 @@ module  s_shape ( input  Clk,
                         ypos[2] = top + 1'b1; 
                         xpos[3] = left + 1'b1; 
                         ypos[3] = top + 2'b10; 
+                        height = 2'b11;
                     end
                 2'b10 : 
                     begin
@@ -44,6 +47,7 @@ module  s_shape ( input  Clk,
                         ypos[2] = top + 1'b1; 
                         xpos[3] = left + 2'b10; 
                         ypos[3] = top; 
+                        height = 2'b10;
                     end
                 2'b11 : 
                     begin
@@ -55,6 +59,7 @@ module  s_shape ( input  Clk,
                         ypos[2] = top + 1'b1; 
                         xpos[3] = left + 1'b1; 
                         ypos[3] = top + 2'b10; 
+                        height = 2'b11;
                     end
 					default:	;
             endcase
@@ -63,6 +68,7 @@ module  s_shape ( input  Clk,
         begin
             xpos = xpos;
             ypos = ypos;
+            height = height;
         end
     end
 endmodule
@@ -74,7 +80,8 @@ module  z_shape ( input  Clk,
                   input [4:0] left, top,  
                   input [1:0]   rotation,
                   output [4:0] xpos[4:0],
-                  output [4:0] ypos[4:0]
+                  output [4:0] ypos[4:0],
+                  output [4:0] height
                   );
 
     always_comb
@@ -92,6 +99,7 @@ module  z_shape ( input  Clk,
                         ypos[2] = top + 1'b1; 
                         xpos[3] = left + 2'b10; 
                         ypos[3] = top + 1'b1; 
+                        height = 2'b10;
                     end
                 2'b01 : 
                     begin
@@ -103,6 +111,7 @@ module  z_shape ( input  Clk,
                         ypos[2] = top; 
                         xpos[3] = left + 1'b1; 
                         ypos[3] = top + 1'b1; 
+                        height = 2'b11;
                     end
                 2'b10 : 
                     begin
@@ -114,6 +123,7 @@ module  z_shape ( input  Clk,
                         ypos[2] = top + 1'b1; 
                         xpos[3] = left + 2'b10; 
                         ypos[3] = top + 1'b1; 
+                        height = 2'b10;
                     end
                 2'b11 : 
                     begin
@@ -125,6 +135,7 @@ module  z_shape ( input  Clk,
                         ypos[2] = top; 
                         xpos[3] = left + 1'b1; 
                         ypos[3] = top + 1'b1; 
+                        height = 2'b11;
                     end
 					default:	;
             endcase
@@ -132,7 +143,8 @@ module  z_shape ( input  Clk,
         else
         begin
             xpos = xpos;
-            ypos = ypos;
+            ypos = ypos;             
+            height = height;
         end
     end
 endmodule
@@ -144,7 +156,8 @@ module  t_shape ( input  Clk,
                   input [4:0] left, top,  
                   input [1:0]   rotation,
                   output [4:0] xpos[4:0],
-                  output [4:0] ypos[4:0]
+                  output [4:0] ypos[4:0],
+                  output [4:0] height
                   );
 
     always_comb
@@ -162,6 +175,7 @@ module  t_shape ( input  Clk,
                         ypos[2] = top + 1'b1; 
                         xpos[3] = left + 2'b10; 
                         ypos[3] = top; 
+                        height = 2'b10;
                     end
                 2'b01 : 
                     begin
@@ -173,6 +187,7 @@ module  t_shape ( input  Clk,
                         ypos[2] = top + 1'b1; 
                         xpos[3] = left + 1'b1; 
                         ypos[3] = top + 2'b10; 
+                        height = 2'b11;
                     end
                 2'b10 : 
                     begin
@@ -183,7 +198,8 @@ module  t_shape ( input  Clk,
                         xpos[2] = left + 1'b1; 
                         ypos[2] = top + 1'b1; 
                         xpos[3] = left + 2'b10; 
-                        ypos[3] = top + 2'b10; 
+                        ypos[3] = top + 1'b1; 
+                        height = 2'b10;
                     end
                 2'b11 : 
                     begin
@@ -195,6 +211,7 @@ module  t_shape ( input  Clk,
                         ypos[2] = top + 2'b10; 
                         xpos[3] = left + 1'b1; 
                         ypos[3] = top + 1'b1; 
+                        height = 2'b11;
                     end
 					default:	;
             endcase
@@ -202,7 +219,8 @@ module  t_shape ( input  Clk,
         else
         begin
             xpos = xpos;
-            ypos = ypos;
+            ypos = ypos;             
+            height = height;
         end
     end
 endmodule
@@ -215,7 +233,8 @@ module  l_shape ( input  Clk,
                   input [4:0] left, top,  
                   input [1:0]   rotation,
                   output [4:0] xpos[4:0],
-                  output [4:0] ypos[4:0]
+                  output [4:0] ypos[4:0],
+                  output [4:0] height
                   );
 
     always_comb
@@ -233,6 +252,7 @@ module  l_shape ( input  Clk,
                         ypos[2] = top; 
                         xpos[3] = left + 2'b10; 
                         ypos[3] = top; 
+                        height = 2'b10;
                     end
                 2'b01 : 
                     begin
@@ -244,6 +264,7 @@ module  l_shape ( input  Clk,
                         ypos[2] = top + 1'b1; 
                         xpos[3] = left + 1'b1; 
                         ypos[3] = top + 2'b10; 
+                        height = 2'b11;
                     end
                 2'b10 : 
                     begin
@@ -255,6 +276,7 @@ module  l_shape ( input  Clk,
                         ypos[2] = top; 
                         xpos[3] = left + 2'b10; 
                         ypos[3] = top + 1'b1; 
+                        height = 2'b10;
                     end
                 2'b11 : 
                     begin
@@ -266,6 +288,7 @@ module  l_shape ( input  Clk,
                         ypos[2] = top + 2'b10; 
                         xpos[3] = left + 1'b1; 
                         ypos[3] = top + 2'b10; 
+                        height = 2'b11;
                     end
 					default:	;
             endcase
@@ -273,7 +296,8 @@ module  l_shape ( input  Clk,
         else
         begin
             xpos = xpos;
-            ypos = ypos;
+            ypos = ypos;             
+            height = height;
         end
     end
 endmodule
@@ -285,7 +309,8 @@ module  line_shape ( input  Clk,
                   input [4:0] left, top,  
                   input [1:0]   rotation,
                   output [4:0] xpos[4:0],
-                  output [4:0] ypos[4:0]
+                  output [4:0] ypos[4:0],
+                  output [4:0] height
                   );
 
     always_comb
@@ -303,6 +328,7 @@ module  line_shape ( input  Clk,
                         ypos[2] = top; 
                         xpos[3] = left + 2'b11; 
                         ypos[3] = top; 
+                        height = 1'b1;
                     end
                 2'b01 : 
                     begin
@@ -314,6 +340,7 @@ module  line_shape ( input  Clk,
                         ypos[2] = top + 2'b10; 
                         xpos[3] = left; 
                         ypos[3] = top + 2'b11; 
+                        height = 3'b100;
                     end
                 2'b10 : 
                     begin
@@ -325,6 +352,7 @@ module  line_shape ( input  Clk,
                         ypos[2] = top; 
                         xpos[3] = left + 2'b11; 
                         ypos[3] = top; 
+                        height = 1'b1;
                     end
                 2'b11 : 
                     begin
@@ -336,6 +364,7 @@ module  line_shape ( input  Clk,
                         ypos[2] = top + 2'b10; 
                         xpos[3] = left; 
                         ypos[3] = top + 2'b11; 
+                        height = 3'b100;
                     end
 					default:	;
             endcase
@@ -343,7 +372,8 @@ module  line_shape ( input  Clk,
         else
         begin
             xpos = xpos;
-            ypos = ypos;
+            ypos = ypos;             
+            height = height;
         end
     end
 endmodule
@@ -355,7 +385,8 @@ module  mirror_l_shape ( input  Clk,
                   input [4:0] left, top,  
                   input [1:0]   rotation,
                   output [4:0] xpos[4:0],
-                  output [4:0] ypos[4:0]
+                  output [4:0] ypos[4:0],
+                  output [4:0] height
                   );
 
     always_comb
@@ -373,6 +404,7 @@ module  mirror_l_shape ( input  Clk,
                         ypos[2] = top; 
                         xpos[3] = left + 2'b10; 
                         ypos[3] = top + 1'b1; 
+                        height = 2'b10;
                     end
                 2'b01 : 
                     begin
@@ -384,6 +416,7 @@ module  mirror_l_shape ( input  Clk,
                         ypos[2] = top + 1'b1; 
                         xpos[3] = left + 1'b1; 
                         ypos[3] = top + 2'b10; 
+                        height = 2'b11;
                     end
                 2'b10 : 
                     begin
@@ -395,6 +428,7 @@ module  mirror_l_shape ( input  Clk,
                         ypos[2] = top + 1'b1; 
                         xpos[3] = left + 2'b10; 
                         ypos[3] = top + 1'b1; 
+                        height = 2'b10;
                     end
                 2'b11 : 
                     begin
@@ -406,6 +440,7 @@ module  mirror_l_shape ( input  Clk,
                         ypos[2] = top + 2'b10; 
                         xpos[3] = left + 1'b1; 
                         ypos[3] = top; 
+                        height = 2'b11;
                     end
 					default:	;
             endcase
@@ -413,7 +448,8 @@ module  mirror_l_shape ( input  Clk,
         else
         begin
             xpos = xpos;
-            ypos = ypos;
+            ypos = ypos;             
+            height = height;
         end
     end
 endmodule
@@ -425,7 +461,8 @@ module  square_shape ( input  Clk,
                   input [4:0] left, top,  
                   input [1:0]   rotation,
                   output [4:0] xpos[4:0],
-                  output [4:0] ypos[4:0]
+                  output [4:0] ypos[4:0],
+                  output [4:0] height
                   );
 
     always_comb
@@ -443,6 +480,7 @@ module  square_shape ( input  Clk,
                         ypos[2] = top; 
                         xpos[3] = left + 1'b1; 
                         ypos[3] = top + 1'b1; 
+                        height = 2'b10;
                     end
                 2'b01 : 
                     begin
@@ -454,6 +492,7 @@ module  square_shape ( input  Clk,
                         ypos[2] = top; 
                         xpos[3] = left + 1'b1; 
                         ypos[3] = top + 1'b1; 
+                        height = 2'b10;
                     end
                 2'b10 : 
                     begin
@@ -465,6 +504,7 @@ module  square_shape ( input  Clk,
                         ypos[2] = top; 
                         xpos[3] = left + 1'b1; 
                         ypos[3] = top + 1'b1; 
+                        height = 2'b10;
                     end
                 2'b11 : 
                     begin
@@ -476,6 +516,7 @@ module  square_shape ( input  Clk,
                         ypos[2] = top; 
                         xpos[3] = left + 1'b1; 
                         ypos[3] = top + 1'b1; 
+                        height = 2'b10;
                     end
 					default:	;
             endcase
@@ -483,7 +524,8 @@ module  square_shape ( input  Clk,
         else
         begin
             xpos = xpos;
-            ypos = ypos;
+            ypos = ypos;             
+            height = height;
         end
     end
 endmodule

@@ -31,14 +31,17 @@ module  shape ( input         Clk,                // 50 MHz clock
     logic [9:0] Shape_X_Pos_in, Shape_X_Motion_in, Shape_Y_Pos_in, Shape_Y_Motion_in;
     logic [1:0] rotation;
     logic [1:0] rotation_in;
+    logic [4:0] left, top;
+    logic [9:0] Shape_Size;
+    logic [4:0] height;
     
-    s_shape(.Clk, .Reset, .alive(choose_s), .left(Shape_X_Pos), .top(Shape_Y_Pos), .rotation, .xpos(blocks_xpos), .ypos(blocks_ypos));
-    z_shape(.Clk, .Reset, .alive(choose_z), .left(Shape_X_Pos), .top(Shape_Y_Pos), .rotation, .xpos(blocks_xpos), .ypos(blocks_ypos));
-    t_shape(.Clk, .Reset, .alive(choose_t), .left(Shape_X_Pos), .top(Shape_Y_Pos), .rotation, .xpos(blocks_xpos), .ypos(blocks_ypos));
-    l_shape(.Clk, .Reset, .alive(choose_l), .left(Shape_X_Pos), .top(Shape_Y_Pos), .rotation, .xpos(blocks_xpos), .ypos(blocks_ypos));
-    line_shape(.Clk, .Reset, .alive(choose_line), .left(Shape_X_Pos), .top(Shape_Y_Pos), .rotation, .xpos(blocks_xpos), .ypos(blocks_ypos));
-    mirror_l_shape(.Clk, .Reset, .alive(choose_ml), .left(Shape_X_Pos), .top(Shape_Y_Pos), .rotation, .xpos(blocks_xpos), .ypos(blocks_ypos));
-    square_shape(.Clk, .Reset, .alive(choose_square), .left(Shape_X_Pos), .top(Shape_Y_Pos), .rotation, .xpos(blocks_xpos), .ypos(blocks_ypos));
+    s_shape(.Clk, .Reset, .alive(choose_s), .left, .top, .rotation, .xpos(blocks_xpos), .ypos(blocks_ypos), .height);
+    z_shape(.Clk, .Reset, .alive(choose_z), .left, .top, .rotation, .xpos(blocks_xpos), .ypos(blocks_ypos), .height);
+    t_shape(.Clk, .Reset, .alive(choose_t), .left, .top, .rotation, .xpos(blocks_xpos), .ypos(blocks_ypos), .height);
+    l_shape(.Clk, .Reset, .alive(choose_l), .left, .top, .rotation, .xpos(blocks_xpos), .ypos(blocks_ypos), .height);
+    line_shape(.Clk, .Reset, .alive(choose_line), .left, .top, .rotation, .xpos(blocks_xpos), .ypos(blocks_ypos), .height);
+    mirror_l_shape(.Clk, .Reset, .alive(choose_ml), .left, .top, .rotation, .xpos(blocks_xpos), .ypos(blocks_ypos), .height);
+    square_shape(.Clk, .Reset, .alive(choose_square), .left, .top, .rotation, .xpos(blocks_xpos), .ypos(blocks_ypos), .height);
 
     //////// Do not modify the always_ff blocks. ////////
     // Detect rising edge of frame_clk
@@ -67,9 +70,7 @@ module  shape ( input         Clk,                // 50 MHz clock
             rotation <= rotation_in;
         end
     end
-    //////// Do not modify the always_ff blocks. ////////
     
-    // You need to modify always_comb block.
     always_comb
     begin
         // By default, keep motion and position unchanged
@@ -77,7 +78,10 @@ module  shape ( input         Clk,                // 50 MHz clock
         Shape_Y_Pos_in = Shape_Y_Pos;
         Shape_X_Motion_in = Shape_X_Motion;
         Shape_Y_Motion_in = Shape_Y_Motion;
-        
+        left = (Shape_X_Pos - Shape_X_Min) / Shape_X_Step;
+        top = (Shape_Y_Pos - Shape_Y_Min) / Shape_Y_keyStep;
+        Shape_Size = (blocks_xpos[3] - left) * Shape_X_Step;
+
         // Update position and motion only at rising edge of frame clock
         // Be careful when using comparators with "logic" datatype because compiler treats 
         //   both sides of the operator as UNSIGNED numbers.
@@ -107,40 +111,38 @@ module  shape ( input         Clk,                // 50 MHz clock
                 8'h04 : 
                     begin
                         Shape_X_Motion_in = (~(Shape_X_Step) + 1'b1);   //left
-                        Shape_Y_Motion_in = 10'h000;
+                        Shape_Y_Motion_in = Shape_Y_Step;
                     end
                 8'h07 : 
                     begin
                         Shape_X_Motion_in = Shape_X_Step;    //right
-                        Shape_Y_Motion_in = 10'h000;
-                    end
-                8'h1A : 
-                    begin
-                        Shape_Y_Motion_in = (~(Shape_Y_Step) + 1'b1);   //up
-                        Shape_X_Motion_in = 10'h000;
+                        Shape_Y_Motion_in = Shape_Y_Step;
                     end
                 8'h16 : 
                     begin
-                        Shape_Y_Motion_in = Shape_Y_Step;    //down
+                        Shape_Y_Motion_in = Shape_Y_keyStep;    //down
                         Shape_X_Motion_in = 10'h000;
                     end
-					default:	;
+					default:	
+                    begin  
+                        Shape_Y_Motion_in = Shape_Y_Step;   
+                        Shape_X_Motion_in = 10'h000;
+                    end
             endcase
-
-
-            if( Shape_Y_Pos + Shape_Size >= Shape_Y_Max )  // Shape is at the bottom edge, BOUNCE!
-                Shape_Y_Motion_in = (~(Shape_Y_Step) + 1'b1);  // 2's complement.  
-            else if ( Shape_Y_Pos <= Shape_Y_Min + Shape_Size )  // Shape is at the top edge, BOUNCE!
-                Shape_Y_Motion_in = Shape_Y_Step;
-            // TODO: Add other boundary detections and handle keypress here.
-            if( Shape_X_Pos + Shape_Size >= Shape_X_Max )  // Shape is at the right edge, BOUNCE!
-                Shape_X_Motion_in = (~(Shape_X_Step) + 1'b1);  // 2's complement.  
-            else if ( Shape_X_Pos <= Shape_X_Min + Shape_Size )  // Shape is at the left edge, BOUNCE!
-                Shape_X_Motion_in = Shape_X_Step;
 
             // Update the Shape's position with its motion
             Shape_X_Pos_in = Shape_X_Pos + Shape_X_Motion;
             Shape_Y_Pos_in = Shape_Y_Pos + Shape_Y_Motion;
+
+            if( Shape_Y_Pos_in + (height * Shape_X_Step) >= Shape_Y_Max )  // Shape is at the bottom edge, stop!
+                Shape_Y_Motion_in = 10'h000;  // 2's complement.  
+                Shape_Y_Pos_in = Shape_Y_Max;
+            if( Shape_X_Pos_in + Shape_Size >= Shape_X_Max )  // Shape is at the right edge, stop!
+                Shape_X_Motion_in = 10'h000;  // 2's complement.  
+                Shape_X_Pos_in = Shape_X_Max;
+            else if ( Shape_X_Pos_in <= Shape_X_Min)  // Shape is at the left edge, stop!
+                Shape_X_Motion_in = 10'h000;
+                Shape_X_Pos_in = Shape_X_Min;
         end
         
         /**************************************************************************************
