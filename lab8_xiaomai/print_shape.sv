@@ -1,7 +1,7 @@
 module print_shape	(
 					input logic [9:0] DrawX, DrawY,
 					input logic [4:0] y [3:0],
-					input logic [3:0] x [3:0],
+					input logic [4:0] x [3:0],
 					output logic is_shape,
 					output logic is_boundary
 					);

@@ -128,9 +128,11 @@ module lab8( input               CLOCK_50,
                         .blocks_xpos(x), .blocks_ypos(y));
     
     color_mapper color_instance(.is_shape(is_shape), .shape({choose_s, choose_z, choose_t, choose_l, choose_line, choose_ml, choose_square}),
-                                .is_boudnary(is_boudnary), .DrawX(DrawX), .DrawY(DrawY),    //draw x\y are inputs
+                                .is_boundary(is_boundary), .DrawX(DrawX), .DrawY(DrawY),    //draw x\y are inputs
                                 .VGA_R(VGA_R), .VGA_G(VGA_G), .VGA_B(VGA_B));
 
+
+    print_shape print_shape_instance(.DrawX(DrawX), .DrawY(DrawY),.y(y),.x(x),.is_shape(is_shape),.is_boundary(is_boundary));
 
     // Display keycode on hex display
     HexDriver hex_inst_0 (keycode[3:0], HEX0);
