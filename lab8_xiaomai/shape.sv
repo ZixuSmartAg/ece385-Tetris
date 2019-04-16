@@ -38,6 +38,7 @@ module  shape ( input         Clk,                // 50 MHz clock
     
 
     tetromino tetromino_instance(.Clk(Clk), .Reset(Reset), .shape_type(shape_type), .left(left), .top(top), .rotation(rotation), .xpos(blocks_xpos), .ypos(blocks_ypos), .height(height));
+    tetromino tetromino_test_instance(.Clk(Clk), .Reset(Reset), .shape_type(shape_type), .left(left), .top(top), .rotation(rotation_test), .xpos(blocks_xpos_test), .ypos(blocks_ypos_test), .height(height_test));
 
     // s_shape s_instance(.Clk(Clk), .Reset(Reset), .alive(choose_s), .left(left), .top(top), .rotation(rotation), .xpos(blocks_xpos), .ypos(blocks_ypos), .height(height));
     // z_shape z_instance(.Clk(Clk), .Reset(Reset), .alive(choose_z), .left(left), .top(top), .rotation(rotation), .xpos(blocks_xpos), .ypos(blocks_ypos), .height(height));
