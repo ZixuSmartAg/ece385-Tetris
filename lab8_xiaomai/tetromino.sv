@@ -11,7 +11,7 @@ module  tetromino ( input  Clk,
     always_comb
     begin
         case(shape_type)
-            7'b0000001://s
+            7'b0000001: //s
                 begin
                     case(rotation)
                         2'b00 : 
@@ -76,7 +76,7 @@ module  tetromino ( input  Clk,
                         end
                     endcase
                 end
-            7'b0000010://z
+            7'b0000010: //z
                 begin
                     case(rotation)
                         2'b00 : 
@@ -141,7 +141,7 @@ module  tetromino ( input  Clk,
                             end
                     endcase
                 end
-            7'b0000100://t
+            7'b0000100: //t
                 begin
                     case(rotation)
                         2'b00 : 
@@ -206,7 +206,7 @@ module  tetromino ( input  Clk,
                             end
                     endcase
                 end
-            7'b0001000://l
+            7'b0001000: //l
                 begin
                     case(rotation)
                         2'b00 : 
@@ -271,7 +271,7 @@ module  tetromino ( input  Clk,
                             end
                     endcase
                 end
-            7'b0010000://line
+            7'b0010000: //line
                 begin
                     case(rotation)
                         2'b00 : 
@@ -336,7 +336,7 @@ module  tetromino ( input  Clk,
                             end
                     endcase
                 end
-            7'b0100000://ml
+            7'b0100000: //ml
                 begin
                     case(rotation)
                         2'b00 : 
@@ -401,7 +401,7 @@ module  tetromino ( input  Clk,
                             end
                     endcase
                 end
-            7'b1000000://square
+            7'b1000000: //square
                 begin
                     case(rotation)
                         2'b00 : 

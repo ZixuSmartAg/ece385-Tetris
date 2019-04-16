@@ -48,7 +48,7 @@ module lab8( input               CLOCK_50,
     
     logic Reset_h, Clk;
     logic [7:0] keycode;
-    logic choose_s, choose_z, choose_t, choose_l, choose_line, choose_ml, choose_square;
+    logic [6:0] shape_type;
     logic [4:0] x [3:0];
     logic [4:0] y [3:0];
     
@@ -123,11 +123,11 @@ module lab8( input               CLOCK_50,
     // Which signal should be frame_clk?
     shape shape_instance(.Clk(Clk), .Reset(Reset_h),              
                         .frame_clk(VGA_VS),.DrawX(DrawX),.DrawY(DrawY),           //vertical clock
-                        .keycode(keycode),.choose_s(choose_s), .choose_z(choose_z),
-                        .choose_t(choose_t), .choose_l(choose_l), .choose_line(choose_line), .choose_ml(choose_ml), .choose_square(choose_square),
+                        .keycode(keycode),
+                        .shape_type(shape_type),
                         .blocks_xpos(x), .blocks_ypos(y));
     
-    color_mapper color_instance(.is_shape(is_shape), .shape({choose_s, choose_z, choose_t, choose_l, choose_line, choose_ml, choose_square}),
+    color_mapper color_instance(.is_shape(is_shape), .shape(shape_type),
                                 .is_boundary(is_boundary), .DrawX(DrawX), .DrawY(DrawY),    //draw x\y are inputs
                                 .VGA_R(VGA_R), .VGA_G(VGA_G), .VGA_B(VGA_B));
 
