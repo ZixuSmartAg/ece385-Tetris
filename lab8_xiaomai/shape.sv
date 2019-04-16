@@ -28,6 +28,7 @@ module  shape ( input         Clk,                // 50 MHz clock
     
     logic [9:0] Shape_X_Pos, Shape_X_Motion, Shape_Y_Pos, Shape_Y_Motion;
     logic [9:0] Shape_X_Pos_in, Shape_X_Motion_in, Shape_Y_Pos_in, Shape_Y_Motion_in;
+    logic [9:0] Shape_X_Pos_in_temp, Shape_Y_Pos_in_temp;
     logic [1:0] rotation, rotation_test;
     logic [1:0] rotation_in;
     logic [4:0] left, top;
@@ -89,7 +90,6 @@ module  shape ( input         Clk,                // 50 MHz clock
         Shape_X_Motion_in = Shape_X_Motion;
         Shape_Y_Motion_in = Shape_Y_Motion;
         rotation_in = rotation;
-        // rotation_test = rotation;
         left = (Shape_X_Pos - Shape_X_Min) / Shape_X_Step;
         top = (Shape_Y_Pos - Shape_Y_Min) / Shape_Y_keyStep;
         Shape_Size = (blocks_xpos[3] - left) * Shape_X_Step;
@@ -197,23 +197,33 @@ module  shape ( input         Clk,                // 50 MHz clock
             endcase
 
             // Update the Shape's position with its motion
-            Shape_X_Pos_in = Shape_X_Pos + Shape_X_Motion;
-            Shape_Y_Pos_in = Shape_Y_Pos + Shape_Y_Motion;
+            Shape_X_Pos_in_temp = Shape_X_Pos + Shape_X_Motion;
+            Shape_Y_Pos_in_temp = Shape_Y_Pos + Shape_Y_Motion;
 
-            if( Shape_Y_Pos_in + (height * Shape_X_Step) >= Shape_Y_Max )  // Shape is at the bottom edge, stop!
+            if( Shape_Y_Pos_in_temp + (height * Shape_X_Step) >= Shape_Y_Max )  // Shape is at the bottom edge, stop!
             begin
                 Shape_Y_Motion_in = 10'h000;  // 2's complement.  
                 Shape_Y_Pos_in = Shape_Y_Max;
             end
-            if( Shape_X_Pos_in + Shape_Size >= Shape_X_Max )  // Shape is at the right edge, stop!
+            else
+            begin
+                Shape_Y_Motion_in = Shape_Y_Step;  // 2's complement.  
+                Shape_Y_Pos_in = Shape_Y_Pos + Shape_Y_Motion;
+            end
+
+            if( Shape_X_Pos_in_temp + Shape_Size >= Shape_X_Max )  // Shape is at the right edge, stop!
             begin
                 Shape_X_Motion_in = 10'h000;  // 2's complement.  
                 Shape_X_Pos_in = Shape_X_Max;
             end
-            else if ( Shape_X_Pos_in <= Shape_X_Min)  // Shape is at the left edge, stop!
+            else if ( Shape_X_Pos_in_temp <= Shape_X_Min)  // Shape is at the left edge, stop!
             begin
                 Shape_X_Motion_in = 10'h000;
                 Shape_X_Pos_in = Shape_X_Min;
+            end
+            else
+            begin
+                Shape_X_Pos_in = Shape_X_Pos + Shape_X_Motion;
             end
         end
         
