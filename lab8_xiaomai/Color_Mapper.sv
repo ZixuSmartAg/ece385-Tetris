@@ -22,10 +22,11 @@ module  color_mapper ( input              is_shape,            // Whether curren
                      );
     
     logic [7:0] Red, Green, Blue;
-    logic [7:0] blockRed, blockGreen, blockBlue;
+    logic [7:0] blockRed, blockGreen, blockBlue, backRed, backGreen, backBlue;
+    logic is_background;
 
     block_color blockcolors(.*);
-    
+    background  backgrounds(.*);
     // Output colors to VGA
     assign VGA_R = Red;
     assign VGA_G = Green;
@@ -46,6 +47,12 @@ module  color_mapper ( input              is_shape,            // Whether curren
                 Red = 8'h00;
                 Green = 8'h00;
                 Blue = 8'h00;
+            end
+        else if(is_background)
+            begin
+                Red = backRed;
+                Green = backGreen;
+                Blue = backBlue;
             end
         else
             begin
