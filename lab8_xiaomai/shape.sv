@@ -7,6 +7,7 @@
 
 module  shape ( input         Clk,                // 50 MHz clock
                              Reset,              // Active-high reset signal
+                             linestack_reset,
                              frame_clk,          // The clock indicating a new frame (~60Hz)
                input [9:0]   DrawX, DrawY,       // Current pixel coordinates
                input [7:0]   keycode,
@@ -61,6 +62,15 @@ module  shape ( input         Clk,                // 50 MHz clock
             Shape_Y_Motion <= Shape_Y_Step;
             rotation <= rotation_init;
         end
+        else if (linestack_reset)
+        begin
+            Shape_X_Pos <= Shape_X_init;
+            Shape_Y_Pos <= Shape_Y_init;
+            Shape_X_Motion <= 10'd0;
+            Shape_Y_Motion <= Shape_Y_Step;
+            rotation <= rotation_init;
+            //shape_type
+        end
         else
         begin
             Shape_X_Pos <= Shape_X_Pos_in;
@@ -107,7 +117,6 @@ module  shape ( input         Clk,                // 50 MHz clock
 //             else if ( Shape_X_Pos <= Shape_X_Min + Shape_Size )  // Shape is at the left edge, BOUNCE!
 //                 Shape_X_Motion_in = Shape_X_Step;
 // */
-
 
             case(keycode)
                 8'h04 : 

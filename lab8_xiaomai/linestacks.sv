@@ -1,14 +1,19 @@
 module  linestacks ( input         Clk,                // 50 MHz clock
                              Reset,              // Active-high reset signal
                              frame_clk,          // The clock indicating a new frame (~60Hz)
-               input [7:0]   keycode,
                input [4:0] blocks_xpos[3:0],
                input [4:0] blocks_ypos[3:0],
                input logic add_shape,
-               output logic field[19:0][9:0]
+               input [6:0]   shape_type,
+               output logic field[19:0][9:0],
+               output logic linestack_reset
               );
 
     parameter [4:0] clear[19:0] = '{4'd0000, 4'd0000, 4'd0000, 4'd0000, 4'd0000, 4'd0000, 4'd0000, 4'd0000, 4'd0000, 4'd0000, 4'd0000, 4'd0000, 4'd0000, 4'd0000, 4'd0000, 4'd0000, 4'd0000, 4'd0000, 4'd0000, 4'd0000};  // initial position on the X axis
+    logic field_in[19:0][9:0];
+    [6:0] field_color_in[19:0][9:0];
+    [6:0] field_color[19:0][9:0];
+    logic linestack_reset_in;
 
     // Detect rising edge of frame_clk
     logic frame_clk_delayed, frame_clk_rising_edge;
@@ -22,17 +27,23 @@ module  linestacks ( input         Clk,                // 50 MHz clock
         if (Reset)
         begin
             field <= '{'{0,0,0,0,0,0,0,0,0,0},'{0,0,0,0,0,0,0,0,0,0},'{0,0,0,0,0,0,0,0,0,0},'{0,0,0,0,0,0,0,0,0,0},'{0,0,0,0,0,0,0,0,0,0},'{0,0,0,0,0,0,0,0,0,0},'{0,0,0,0,0,0,0,0,0,0},'{0,0,0,0,0,0,0,0,0,0},'{0,0,0,0,0,0,0,0,0,0},'{0,0,0,0,0,0,0,0,0,0},'{0,0,0,0,0,0,0,0,0,0},'{0,0,0,0,0,0,0,0,0,0},'{0,0,0,0,0,0,0,0,0,0},'{0,0,0,0,0,0,0,0,0,0},'{0,0,0,0,0,0,0,0,0,0},'{0,0,0,0,0,0,0,0,0,0},'{0,0,0,0,0,0,0,0,0,0},'{0,0,0,0,0,0,0,0,0,0},'{0,0,0,0,0,0,0,0,0,0},'{0,0,0,0,0,0,0,0,0,0}};
+            field_color <= {20{7'b1111111, 7'b1111111, , 7'b1111111, 7'b1111111, 7'b1111111, 7'b1111111, 7'b1111111, 7'b1111111, 7'b1111111, 7'b1111111}};
             clear <= '{4'd0000, 4'd0000, 4'd0000, 4'd0000, 4'd0000, 4'd0000, 4'd0000, 4'd0000, 4'd0000, 4'd0000, 4'd0000, 4'd0000, 4'd0000, 4'd0000, 4'd0000, 4'd0000, 4'd0000, 4'd0000, 4'd0000, 4'd0000};
+            linestack_reset <= 0;
         end
         else
         begin
             field <= field_in;
+            field_color <= field_color_in;
+            linestack_reset <= linestack_reset_in;
         end
     end
 
     always_comb
     begin
         field_in = field;
+        field_color_in = field_color;
+        linestack_reset_in = 0;
         
         if (frame_clk_rising_edge)
         begin
@@ -42,10 +53,15 @@ module  linestacks ( input         Clk,                // 50 MHz clock
                 field_in[blocks_ypos[1]][blocks_xpos[1]] = 1'b1;
                 field_in[blocks_ypos[2]][blocks_xpos[2]] = 1'b1;
                 field_in[blocks_ypos[3]][blocks_xpos[3]] = 1'b1;
+                field_color_in[blocks_ypos[3]][blocks_xpos[3]] = shape_type;
+                field_color_in[blocks_ypos[3]][blocks_xpos[3]] = shape_type;
+                field_color_in[blocks_ypos[3]][blocks_xpos[3]] = shape_type;
+                field_color_in[blocks_ypos[3]][blocks_xpos[3]] = shape_type;
                 clear[blocks_ypos[0]] = blocks_ypos[0] + 1;
                 clear[blocks_ypos[1]] = blocks_ypos[1] + 1;
                 clear[blocks_ypos[2]] = blocks_ypos[2] + 1;
                 clear[blocks_ypos[3]] = blocks_ypos[3] + 1;
+                linestack_reset_in = 1;
             end
 
             for (int i = 0; i < 20; i++)
