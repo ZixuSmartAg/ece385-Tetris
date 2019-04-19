@@ -81,9 +81,21 @@ module  linestacks ( input         Clk,                // 50 MHz clock
                         field_in[j][7] = field_in[j-1][7];
                         field_in[j][8] = field_in[j-1][8];
                         field_in[j][9] = field_in[j-1][9];
+
+                        field_color_in[j][0] = field_color_in[j-1][0];
+                        field_color_in[j][1] = field_color_in[j-1][1];
+                        field_color_in[j][2] = field_color_in[j-1][2];
+                        field_color_in[j][3] = field_color_in[j-1][3];
+                        field_color_in[j][4] = field_color_in[j-1][4];
+                        field_color_in[j][5] = field_color_in[j-1][5];
+                        field_color_in[j][6] = field_color_in[j-1][6];
+                        field_color_in[j][7] = field_color_in[j-1][7];
+                        field_color_in[j][8] = field_color_in[j-1][8];
+                        field_color_in[j][9] = field_color_in[j-1][9];
                     end
                     clear[j] = 4'd0000;
                     field_in[0] = '{0,0,0,0,0,0,0,0,0,0};
+                    field_color_in[0] = '{7'b1111111, 7'b1111111, , 7'b1111111, 7'b1111111, 7'b1111111, 7'b1111111, 7'b1111111, 7'b1111111, 7'b1111111, 7'b1111111};
                 end
             end
         end 
