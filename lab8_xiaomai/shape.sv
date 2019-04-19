@@ -11,8 +11,10 @@ module  shape ( input         Clk,                // 50 MHz clock
                input [9:0]   DrawX, DrawY,       // Current pixel coordinates
                input [7:0]   keycode,
                input [6:0]   shape_type,
+               input logic field[19:0][9:0],
                output [4:0] blocks_xpos[3:0],
-               output [4:0] blocks_ypos[3:0]
+               output [4:0] blocks_ypos[3:0],
+               output logic add_shape
               );
     
     parameter [9:0] Shape_X_init = 10'd320;  // initial position on the X axis
@@ -182,8 +184,6 @@ module  shape ( input         Clk,                // 50 MHz clock
                 Shape_Y_Motion_in = Shape_Y_Step;  // 2's complement.  
                 Shape_Y_Pos_in = Shape_Y_Pos + Shape_Y_Motion;
             end
-
-
 
 
             if( Shape_X_Pos + Shape_Size >= Shape_X_Max )  // Shape is at the right edge, stop!
