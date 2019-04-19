@@ -105,18 +105,10 @@ module  shape ( input         Clk,                // 50 MHz clock
 
         if (frame_clk_rising_edge)
         begin
-
-
-//         /*
-//             if( Shape_Y_Pos + Shape_Size >= Shape_Y_Max )  // Shape is at the bottom edge, BOUNCE!
-//                 Shape_Y_Motion_in = (~(Shape_Y_Step) + 1'b1);  // 2's complement.  
-//             else if ( Shape_Y_Pos <= Shape_Y_Min + Shape_Size )  // Shape is at the top edge, BOUNCE!
-//                 Shape_Y_Motion_in = Shape_Y_Step;
-//             if( Shape_X_Pos + Shape_Size >= Shape_X_Max )  // Shape is at the right edge, BOUNCE!
-//                 Shape_X_Motion_in = (~(Shape_X_Step) + 1'b1);  // 2's complement.  
-//             else if ( Shape_X_Pos <= Shape_X_Min + Shape_Size )  // Shape is at the left edge, BOUNCE!
-//                 Shape_X_Motion_in = Shape_X_Step;
-// */
+            if (Shape_Y_Motion == 10'h000;)
+            add_shape = 1;
+            else
+            add_shape = 0;
 
             case(keycode)
                 8'h04 : 
