@@ -1,7 +1,6 @@
 module  linestacks ( input         Clk,                // 50 MHz clock
                              Reset,              // Active-high reset signal
                              frame_clk,          // The clock indicating a new frame (~60Hz)
-               input [7:0]   keycode,
                input [4:0] blocks_xpos[3:0],
                input [4:0] blocks_ypos[3:0],
                input logic add_shape,

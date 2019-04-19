@@ -108,7 +108,7 @@ module lab8( input               CLOCK_50,
                              .otg_hpi_reset_export(hpi_reset)
     );
     
-  
+  parameter shape[6:0] = 7'b0010000;
 
 
     // Use PLL to generate the 25MHZ VGA_CLK.
@@ -124,10 +124,10 @@ module lab8( input               CLOCK_50,
     shape shape_instance(.Clk(Clk), .Reset(Reset_h),              
                         .frame_clk(VGA_VS),.DrawX(DrawX),.DrawY(DrawY),           //vertical clock
                         .keycode(keycode),
-                        .shape_type(shape_type),
+                        .shape_type(/*shape_type*/ shape),
                         .blocks_xpos(x), .blocks_ypos(y));
     
-    color_mapper color_instance(.is_shape(is_shape), .shape(shape_type),
+    color_mapper color_instance(.is_shape(is_shape), .shape(/*shape_type*/ shape),
                                 .is_boundary(is_boundary), .DrawX(DrawX), .DrawY(DrawY),    //draw x\y are inputs
                                 .VGA_R(VGA_R), .VGA_G(VGA_G), .VGA_B(VGA_B));
 

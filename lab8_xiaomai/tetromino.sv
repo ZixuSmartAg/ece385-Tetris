@@ -468,15 +468,15 @@ module  tetromino ( input  Clk,
                 end
             default:
             begin
-                xpos[0] = left; 
-                ypos[0] = top + 1'b1; 
-                xpos[1] = left + 1'b1; 
-                ypos[1] = top; 
-                xpos[2] = left + 1'b1; 
-                ypos[2] = top + 1'b1; 
-                xpos[3] = left + 2'b10; 
-                ypos[3] = top; 
-                height = 2'b10;
+                 xpos[0] = left; 
+                 ypos[0] = top; 
+                 xpos[1] = left + 1'b1; 
+                 ypos[1] = top; 
+                 xpos[2] = left + 2'b10; 
+                 ypos[2] = top; 
+                 xpos[3] = left + 2'b11; 
+                 ypos[3] = top; 
+                 height = 1'b1;
             end
         endcase
     end
