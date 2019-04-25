@@ -26,7 +26,7 @@ module  color_mapper ( input              is_shape,            // Whether curren
     logic is_background;
 
     block_color blockcolors(.*);
-    background  backgrounds(.*);
+    background  backgrounds(.*, .field_color());
     // Output colors to VGA
     assign VGA_R = Red;
     assign VGA_G = Green;

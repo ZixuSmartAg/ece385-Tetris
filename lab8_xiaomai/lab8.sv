@@ -108,7 +108,7 @@ module lab8( input               CLOCK_50,
                              .otg_hpi_reset_export(hpi_reset)
     );
     
-  parameter shape[6:0] = 7'b0010000;
+  parameter [6:0]shape = 7'b0010000;
 
 
     // Use PLL to generate the 25MHZ VGA_CLK.
