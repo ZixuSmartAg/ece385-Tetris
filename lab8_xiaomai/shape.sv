@@ -101,8 +101,6 @@ module  shape ( input         Clk,                // 50 MHz clock
         // e.g. Shape_Y_Pos - Shape_Size <= Shape_Y_Min 
         // If Shape_Y_Pos is 0, then Shape_Y_Pos - Shape_Size will not be -4, but rather a large positive number.
 
-
-
         if (frame_clk_rising_edge)
         begin
             if (Shape_Y_Motion == 10'h000;)
@@ -167,7 +165,6 @@ module  shape ( input         Clk,                // 50 MHz clock
                         Shape_Y_Motion_in = Shape_Y_Step;   
                         Shape_X_Motion_in = 10'h000;
                         rotation_in = rotation;
-
                     end
             endcase
 
@@ -186,7 +183,6 @@ module  shape ( input         Clk,                // 50 MHz clock
                 Shape_Y_Pos_in = Shape_Y_Pos + Shape_Y_Motion;
             end
 
-
             if( Shape_X_Pos + Shape_Size >= Shape_X_Max )  // Shape is at the right edge, stop!
             begin
                 Shape_X_Motion_in = 10'h000;  // 2's complement.  
@@ -202,7 +198,7 @@ module  shape ( input         Clk,                // 50 MHz clock
                 Shape_X_Pos_in = Shape_X_Pos + Shape_X_Motion;
                 Shape_X_Motion_in = Shape_X_Motion_in;
             end
-        
+
         /**************************************************************************************
             ATTENTION! Please answer the following quesiton in your lab report! Points will be allocated for the answers!
             Hidden Question #2/2:
