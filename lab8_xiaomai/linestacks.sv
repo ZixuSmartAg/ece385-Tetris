@@ -9,7 +9,7 @@ module  linestacks ( input   Clk,                // 50 MHz clock
                output logic linestack_reset
               );
 
-    parameter [4:0] clear[19:0] = '{4'd0000, 4'd0000, 4'd0000, 4'd0000, 4'd0000, 4'd0000, 4'd0000, 4'd0000, 4'd0000, 4'd0000, 4'd0000, 4'd0000, 4'd0000, 4'd0000, 4'd0000, 4'd0000, 4'd0000, 4'd0000, 4'd0000, 4'd0000};  // initial position on the X axis
+    logic [4:0] clear[19:0];  // initial position on the X axis
     logic field_in[19:0][9:0];
     logic [6:0] field_color_in[19:0][9:0];
     logic [6:0] field_color[19:0][9:0];
@@ -93,9 +93,9 @@ module  linestacks ( input   Clk,                // 50 MHz clock
                         field_color_in[j][8] = field_color_in[j-1][8];
                         field_color_in[j][9] = field_color_in[j-1][9];
                     end
-                    clear[j] = 4'd0000;
+                    clear[0] = 4'd0000;
                     field_in[0] = '{0,0,0,0,0,0,0,0,0,0};
-                    field_color_in[0] = '{7'b1111111, 7'b1111111, , 7'b1111111, 7'b1111111, 7'b1111111, 7'b1111111, 7'b1111111, 7'b1111111, 7'b1111111, 7'b1111111};
+                    field_color_in[0] = '{7'b1111111, 7'b1111111, 7'b1111111, 7'b1111111, 7'b1111111, 7'b1111111, 7'b1111111, 7'b1111111, 7'b1111111, 7'b1111111};
                 end
             end
         end 
