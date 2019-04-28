@@ -1,4 +1,4 @@
-   module  linestacks ( input         Clk,                // 50 MHz clock
+module  linestacks ( input   Clk,                // 50 MHz clock
                              Reset,              // Active-high reset signal
                              frame_clk,          // The clock indicating a new frame (~60Hz)
                input [4:0] blocks_xpos[3:0],
@@ -6,13 +6,13 @@
                input logic add_shape,
                input [6:0]   shape_type,
                output logic field[19:0][9:0],
+               output [6:0] field_color[19:0][9:0],
                output logic linestack_reset
               );
 
     logic [4:0] clear[19:0];  // initial position on the X axis
     logic field_in[19:0][9:0];
     logic [6:0] field_color_in[19:0][9:0];
-    logic [6:0] field_color[19:0][9:0];
     logic linestack_reset_in;
 
     // Detect rising edge of frame_clk
@@ -27,7 +27,7 @@
         if (Reset)
         begin
             field <= '{'{0,0,0,0,0,0,0,0,0,0},'{0,0,0,0,0,0,0,0,0,0},'{0,0,0,0,0,0,0,0,0,0},'{0,0,0,0,0,0,0,0,0,0},'{0,0,0,0,0,0,0,0,0,0},'{0,0,0,0,0,0,0,0,0,0},'{0,0,0,0,0,0,0,0,0,0},'{0,0,0,0,0,0,0,0,0,0},'{0,0,0,0,0,0,0,0,0,0},'{0,0,0,0,0,0,0,0,0,0},'{0,0,0,0,0,0,0,0,0,0},'{0,0,0,0,0,0,0,0,0,0},'{0,0,0,0,0,0,0,0,0,0},'{0,0,0,0,0,0,0,0,0,0},'{0,0,0,0,0,0,0,0,0,0},'{0,0,0,0,0,0,0,0,0,0},'{0,0,0,0,0,0,0,0,0,0},'{0,0,0,0,0,0,0,0,0,0},'{0,0,0,0,0,0,0,0,0,0},'{0,0,0,0,0,0,0,0,0,0}};
-            field_color <= {20{7'b1111111, 7'b1111111, , 7'b1111111, 7'b1111111, 7'b1111111, 7'b1111111, 7'b1111111, 7'b1111111, 7'b1111111, 7'b1111111}};
+            field_color <= {20{7'b1111111, 7'b1111111, 7'b1111111, 7'b1111111, 7'b1111111, 7'b1111111, 7'b1111111, 7'b1111111, 7'b1111111, 7'b1111111}};
             clear <= '{4'd0000, 4'd0000, 4'd0000, 4'd0000, 4'd0000, 4'd0000, 4'd0000, 4'd0000, 4'd0000, 4'd0000, 4'd0000, 4'd0000, 4'd0000, 4'd0000, 4'd0000, 4'd0000, 4'd0000, 4'd0000, 4'd0000, 4'd0000};
             linestack_reset <= 0;
         end
