@@ -64,7 +64,7 @@ module  shape ( input         Clk,                // 50 MHz clock
             rotation <= rotation_init;
             add_shape <= 0;
         end
-        else if (linestack_reset)
+        else if (linestack_reset || Reset)      //we need to consider Reset too???
         begin
             Shape_X_Pos <= Shape_X_init;
             Shape_Y_Pos <= Shape_Y_init;

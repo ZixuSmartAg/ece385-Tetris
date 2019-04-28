@@ -60,7 +60,7 @@ module lab8( input               CLOCK_50,
     logic [1:0] hpi_addr;
     logic [15:0] hpi_data_in, hpi_data_out;
     logic hpi_r, hpi_w, hpi_cs, hpi_reset;
-    logic is_shape, is_boundary;
+    logic is_shape, is_boundary, is_line_reset;
     logic [9:0] DrawX, DrawY; 
     
     // Interface between NIOS II and EZ-OTG chip
@@ -108,7 +108,7 @@ module lab8( input               CLOCK_50,
                              .otg_hpi_reset_export(hpi_reset)
     );
     
-  parameter [6:0]shape = 7'b0010000;
+  // parameter [6:0]shape = 7'b0010000;
 
 
     // Use PLL to generate the 25MHZ VGA_CLK.
@@ -123,11 +123,14 @@ module lab8( input               CLOCK_50,
     // Which signal should be frame_clk?
     shape shape_instance(.Clk(Clk), .Reset(Reset_h),              
                         .frame_clk(VGA_VS),.DrawX(DrawX),.DrawY(DrawY),           //vertical clock
+                        .linestack_reset(is_line_reset),
                         .keycode(keycode),
-                        .shape_type(/*shape_type*/ shape),
+                        .shape_type(shape_type),
                         .blocks_xpos(x), .blocks_ypos(y));
+
+    random  random_generator(.is_line_reset(is_line_reset), .Reset(Reset_h), .new_shape(shape_type));
     
-    color_mapper color_instance(.is_shape(is_shape), .shape(/*shape_type*/ shape),
+    color_mapper color_instance(.is_shape(is_shape), .shape(shape_type),
                                 .is_boundary(is_boundary), .DrawX(DrawX), .DrawY(DrawY),    //draw x\y are inputs
                                 .VGA_R(VGA_R), .VGA_G(VGA_G), .VGA_B(VGA_B));
 
