@@ -8,6 +8,7 @@ module background(
 
 parameter size = 10'd24;	//size of a pixel
 parameter offsetleft = 10'd190;		//offseting the wall
+parameter offsetleftwall = 10'd200;
 parameter offsetright = 10'd440;
 
 logic [6:0]	bottomShape;
@@ -32,7 +33,7 @@ begin
 			begin
 				for(int j = 0; j < 9; j++)
 				begin
-					if((DrawX < offsetleft + (j + 1) * size) && (DrawX - offsetleft > j * size) && (DrawY > (i-1) * size) && (DrawY < i * size))
+					if((DrawX < offsetleftwall + (j + 1) * size) && (DrawX - offsetleftwall > j * size) && (DrawY > (i-1) * size) && (DrawY < i * size))
 						begin
 							bottomShape = field_color[i][j];
 							backRed = blockRed;

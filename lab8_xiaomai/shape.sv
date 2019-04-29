@@ -246,7 +246,7 @@ module  shape ( input         Clk,                // 50 MHz clock
                 else
                 begin
                     Shape_Y_Motion_in = Shape_Y_Motion_in;  
-                    Shape_X_Motion_in = Shape_X_Motion_in 
+                    Shape_X_Motion_in = Shape_X_Motion_in;
                     Shape_Y_Pos_in = Shape_Y_Pos_in;
                     Shape_X_Pos_in = Shape_X_Pos_in;
                     add_shape_in = 0 | add_shape_in;     
@@ -304,7 +304,7 @@ module  shape ( input         Clk,                // 50 MHz clock
                 else
                 begin
                     Shape_Y_Motion_in = Shape_Y_Motion_in;  
-                    Shape_X_Motion_in = Shape_X_Motion_in 
+                    Shape_X_Motion_in = Shape_X_Motion_in; 
                     Shape_Y_Pos_in = Shape_Y_Pos_in;
                     Shape_X_Pos_in = Shape_X_Pos_in;
                     add_shape_in = 0 | add_shape_in;  
