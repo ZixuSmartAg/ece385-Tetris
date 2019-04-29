@@ -32,7 +32,7 @@ module  linestacks ( input   Clk,                // 50 MHz clock
                 begin
                     for(int j = 0; j < 10; j++)
                         begin
-                            field_color[i][j] <= 7'b1111111;
+                            field_color[i][j] <= 7'b0000001;
                             field[i][j] <= 1'b0;
                         end
                 end
@@ -145,7 +145,7 @@ module  linestacks ( input   Clk,                // 50 MHz clock
                     end
                     // clear[0] = 4'd0;
                     field_in[0] = '{0,0,0,0,0,0,0,0,0,0};
-                    field_color_in[0] = '{7'b1111111, 7'b1111111, 7'b1111111, 7'b1111111, 7'b1111111, 7'b1111111, 7'b1111111, 7'b1111111, 7'b1111111, 7'b1111111};
+                    field_color_in[0] = '{7'b0000000, 7'b0000000, 7'b0000000, 7'b0000000, 7'b0000000, 7'b0000000, 7'b0000000, 7'b0000000, 7'b0000000, 7'b0000000};
                 end
             end
         end 

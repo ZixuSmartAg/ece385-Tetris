@@ -33,23 +33,16 @@ begin
 			begin
 				for(int j = 0; j < 9; j++)
 				begin
-					if((DrawX - offsetleft < (j + 1) * size) && (DrawX - offsetleft > j * size) && (DrawY > (i-1) * size) && (DrawY < i * size))
-						begin
-							bottomShape = field_color[i][j];
-							backRed = blockRed;
-							backGreen = blockGreen;
-							backBlue = blockBlue;
-							is_background = 1'b1;
-						end
+
+					bottomShape = field_color[i][j];
+					backRed = blockRed;
+					backGreen = blockGreen;
+					backBlue = blockBlue;
+					is_background = 1'b1;
+						
 				end
 			end
 
-			//inside the field, black
-			bottomShape = 7'h00;
-			backRed = 8'h00;
-			backGreen = 8'h00;
-			backBlue = 8'h00;
-			is_background = 1'b1;
 		end
 	else
 		begin
