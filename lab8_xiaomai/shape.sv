@@ -104,14 +104,14 @@ module  shape ( input         Clk,                // 50 MHz clock
             rotation <= rotation_init;
             add_shape <= 0;
         end
-        else if (linestack_reset || Reset)      //we need to consider Reset too???
+        else if (linestack_reset)      //we need to consider Reset too???
         begin
             Shape_X_Pos <= Shape_X_init;
             Shape_Y_Pos <= Shape_Y_init;
             Shape_X_Motion <= 10'd0;
             Shape_Y_Motion <= Shape_Y_Step;
             rotation <= rotation_init;
-            add_shape <= 1; //add shape should be one when reseting the stack, and new shape adding in, right??????
+            add_shape <= 0; //add shape should be one when reseting the stack, and new shape adding in, right??????
             //shape_type
         end
         else
@@ -216,14 +216,14 @@ module  shape ( input         Clk,                // 50 MHz clock
                 begin
                     Shape_X_Motion_in = 10'h000;  // 2's complement.  
                     Shape_X_Pos_in = Shape_X_Max - Shape_Size + 1;
-                    add_shape_in = 1;
+                    add_shape_in = 0 | add_shape_in;
                     rotation_in = rotation_in;
                 end
                 else if ( Shape_X_Pos <= Shape_X_Min)  // Shape is at the left edge, stop!
                 begin
                     Shape_X_Motion_in = 10'h000;
                     Shape_X_Pos_in = Shape_X_Min;
-                    add_shape_in = 1;
+                    add_shape_in = 0 | add_shape_in;
                     rotation_in = rotation_in;
                 end
                 else
@@ -234,24 +234,24 @@ module  shape ( input         Clk,                // 50 MHz clock
                     rotation_in = rotation_in;
                 end
 
-                if(field[blocks_ypos[0]][blocks_xpos[0]] == 1 || field[blocks_ypos[1]][blocks_xpos[1]] == 1 || field[blocks_ypos[2]][blocks_xpos[2]] == 1 || field[blocks_ypos[3]][blocks_xpos[3]] == 1)
-                begin
-                    Shape_Y_Motion_in = 10'h000;  
-                    Shape_X_Motion_in = 10'h000;  
-                    Shape_Y_Pos_in = Shape_Y_Pos;
-                    Shape_X_Pos_in = Shape_X_Pos;
-                    add_shape_in = 1;      //new shape should come in  
-                    rotation_in = rotation_in;              
-                end
-                else
-                begin
-                    Shape_Y_Motion_in = Shape_Y_Motion_in;  
-                    Shape_X_Motion_in = Shape_X_Motion_in;
-                    Shape_Y_Pos_in = Shape_Y_Pos_in;
-                    Shape_X_Pos_in = Shape_X_Pos_in;
-                    add_shape_in = 0 | add_shape_in;     
-                    rotation_in = rotation_in;          
-                end
+                // if(field[blocks_ypos[0]][blocks_xpos[0]] == 1 || field[blocks_ypos[1]][blocks_xpos[1]] == 1 || field[blocks_ypos[2]][blocks_xpos[2]] == 1 || field[blocks_ypos[3]][blocks_xpos[3]] == 1)
+                // begin
+                //     Shape_Y_Motion_in = 10'h000;  
+                //     Shape_X_Motion_in = 10'h000;  
+                //     Shape_Y_Pos_in = Shape_Y_Pos;
+                //     Shape_X_Pos_in = Shape_X_Pos;
+                //     add_shape_in = 1;      //new shape should come in  
+                //     rotation_in = rotation_in;              
+                // end
+                // else
+                // begin
+                //     Shape_Y_Motion_in = Shape_Y_Motion_in;  
+                //     Shape_X_Motion_in = Shape_X_Motion_in;
+                //     Shape_Y_Pos_in = Shape_Y_Pos_in;
+                //     Shape_X_Pos_in = Shape_X_Pos_in;
+                //     add_shape_in = 0 | add_shape_in;     
+                //     rotation_in = rotation_in;          
+                // end
             end
             else
             begin
@@ -274,14 +274,14 @@ module  shape ( input         Clk,                // 50 MHz clock
                 begin
                     Shape_X_Motion_in = 10'h000;  // 2's complement.  
                     Shape_X_Pos_in = Shape_X_Max - Shape_Size_test + 1;
-                    add_shape_in = 1;
+                    add_shape_in = 0 | add_shape_in;
                     rotation_in = rotation; 
                 end
                 else if ( Shape_X_Pos <= Shape_X_Min)  // Shape is at the left edge, stop!
                 begin
                     Shape_X_Motion_in = 10'h000;
                     Shape_X_Pos_in = Shape_X_Min;
-                    add_shape_in = 1;
+                    add_shape_in = 0 | add_shape_in;
                     rotation_in = rotation; 
                 end
                 else
@@ -292,24 +292,24 @@ module  shape ( input         Clk,                // 50 MHz clock
                     rotation_in = rotation_in; 
                 end
 
-                if(field[blocks_ypos_test[0]][blocks_xpos_test[0]] == 1 || field[blocks_ypos_test[1]][blocks_xpos_test[1]] == 1 || field[blocks_ypos_test[2]][blocks_xpos_test[2]] == 1 || field[blocks_ypos_test[3]][blocks_xpos_test[3]] == 1)
-                begin
-                    Shape_Y_Motion_in = 10'h000;  
-                    Shape_X_Motion_in = 10'h000;  
-                    Shape_Y_Pos_in = Shape_Y_Pos;
-                    Shape_X_Pos_in = Shape_X_Pos;
-                    add_shape_in = 1;      //new shape should come in     
-                    rotation_in = rotation;            
-                end
-                else
-                begin
-                    Shape_Y_Motion_in = Shape_Y_Motion_in;  
-                    Shape_X_Motion_in = Shape_X_Motion_in; 
-                    Shape_Y_Pos_in = Shape_Y_Pos_in;
-                    Shape_X_Pos_in = Shape_X_Pos_in;
-                    add_shape_in = 0 | add_shape_in;  
-                    rotation_in = rotation_in;              
-                end
+                // if(field[blocks_ypos_test[0]][blocks_xpos_test[0]] == 1 || field[blocks_ypos_test[1]][blocks_xpos_test[1]] == 1 || field[blocks_ypos_test[2]][blocks_xpos_test[2]] == 1 || field[blocks_ypos_test[3]][blocks_xpos_test[3]] == 1)
+                // begin
+                //     Shape_Y_Motion_in = 10'h000;  
+                //     Shape_X_Motion_in = 10'h000;  
+                //     Shape_Y_Pos_in = Shape_Y_Pos;
+                //     Shape_X_Pos_in = Shape_X_Pos;
+                //     add_shape_in = 1;      //new shape should come in     
+                //     rotation_in = rotation;            
+                // end
+                // else
+                // begin
+                //     Shape_Y_Motion_in = Shape_Y_Motion_in;  
+                //     Shape_X_Motion_in = Shape_X_Motion_in; 
+                //     Shape_Y_Pos_in = Shape_Y_Pos_in;
+                //     Shape_X_Pos_in = Shape_X_Pos_in;
+                //     add_shape_in = 0 | add_shape_in;  
+                //     rotation_in = rotation_in;              
+                // end
             end
 
         /**************************************************************************************

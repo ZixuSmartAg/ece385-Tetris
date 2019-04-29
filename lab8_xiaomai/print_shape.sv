@@ -6,7 +6,7 @@ module print_shape	(
 					output logic is_boundary
 					);
 	parameter [9:0] square_pixel_size = 10'd24;
-	parameter [9:0] offset = 10'd189;	//about 6 of the blocks
+	parameter [9:0] offset = 10'd200;	//about 6 of the blocks
 	logic [9:0] tempx;
 	assign tempx = DrawX - offset;
 

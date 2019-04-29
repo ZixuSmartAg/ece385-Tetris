@@ -7,8 +7,8 @@ module background(
 				);
 
 parameter size = 10'd24;	//size of a pixel
-parameter offsetleft = 10'd190;		//offseting the wall
-parameter offsetleftwall = 10'd200;
+parameter offsetleft = 10'd200;		//offseting the wall
+parameter offsetleftwall = 10'd190;
 parameter offsetright = 10'd440;
 
 logic [6:0]	bottomShape;
@@ -19,7 +19,7 @@ block_color blockscolor(.shape(bottomShape),.blockRed(blockRed),.blockGreen(bloc
 always_comb
 begin
 
-	if((DrawX - offsetleft >= 0  && DrawX - offsetleft < 20) || (DrawX - offsetright >= 0 && DrawX - offsetright < 20))
+	if((DrawX - offsetleftwall >= 0  && DrawX - offsetleftwall < 10) || (DrawX - offsetright >= 0 && DrawX - offsetright < 10))
 		begin		//sky blue two side wall
 			is_background = 1'b1;
 			backRed = 8'h87;
@@ -33,7 +33,7 @@ begin
 			begin
 				for(int j = 0; j < 9; j++)
 				begin
-					if((DrawX < offsetleftwall + (j + 1) * size) && (DrawX - offsetleftwall > j * size) && (DrawY > (i-1) * size) && (DrawY < i * size))
+					if((DrawX - offsetleft < (j + 1) * size) && (DrawX - offsetleft > j * size) && (DrawY > (i-1) * size) && (DrawY < i * size))
 						begin
 							bottomShape = field_color[i][j];
 							backRed = blockRed;
@@ -44,7 +44,7 @@ begin
 				end
 			end
 
-			//inside the field
+			//inside the field, black
 			bottomShape = 7'h00;
 			backRed = 8'h00;
 			backGreen = 8'h00;

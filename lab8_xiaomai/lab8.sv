@@ -63,6 +63,7 @@ module lab8( input               CLOCK_50,
     logic is_shape, is_boundary, add_shape, linestack_reset;
     logic [9:0] DrawX, DrawY; 
     logic [6:0] field_color[19:0][9:0];
+    logic field[19:0][9:0];
     
     // Interface between NIOS II and EZ-OTG chip
     hpi_io_intf hpi_io_inst(
@@ -124,14 +125,15 @@ module lab8( input               CLOCK_50,
     // Which signal should be frame_clk?
     shape shape_instance(.Clk(Clk), .Reset(Reset_h),              
                         .frame_clk(VGA_VS),.DrawX(DrawX),.DrawY(DrawY),           //vertical clock
-                        .linestack_reset(is_line_reset),
+                        .linestack_reset(linestack_reset),
                         .keycode(keycode),
                         .shape_type(/*shape_type*/ shape),
+                        .field(field),
                         .blocks_xpos(x), .blocks_ypos(y), .add_shape(add_shape));
 
 
-    linestacks linestack_instance(.Clk(Clk),.Reset(Reset_h), .frame_clk(VGA_VS),.blocks_xpos(x),.blocks_ypos(y),
-                .add_shape(add_shape),.shape_type(shape),.field(/*??????*/),.field_color(field_color),.linestack_reset(linestack_reset));
+    linestacks linestack_instance(.Clk(Clk),.Reset(Reset_h),.frame_clk(VGA_VS),.blocks_xpos(x),.blocks_ypos(y),
+                .add_shape(add_shape),.shape_type(shape),.field(field),.field_color(field_color),.linestack_reset(linestack_reset));
 
     // random  random_generator(.is_line_reset(is_line_reset), .Reset(Reset_h), .new_shape(shape_type));
     
