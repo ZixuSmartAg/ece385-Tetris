@@ -80,6 +80,7 @@ module  shape ( input         Clk,                // 50 MHz clock
     logic [9:0] Shape_Size, Shape_Size_test;
     logic [4:0] height, height_test;
     logic [4:0] blocks_xpos_test[3:0], blocks_ypos_test[3:0];
+    logic dongen_in;
     // logic stop;
     // logic [4:0] x [3:0];
     // logic [4:0] y [3:0];
@@ -105,14 +106,23 @@ module  shape ( input         Clk,                // 50 MHz clock
     // Update registers
     always_ff @ (posedge Clk)
     begin
-        if (Reset || stop)
+        if (Reset)
         begin
             Shape_X_Pos <= Shape_X_init;
             Shape_Y_Pos <= Shape_Y_init;
             Shape_X_Motion <= 10'd0;
             Shape_Y_Motion <= Shape_Y_Step;
+            dongen <= 0;
             // rotation <= rotation_init;
             // stop <= 0;
+        end
+        else if (stop)
+        begin
+            Shape_X_Pos <= Shape_X_init;
+            Shape_Y_Pos <= Shape_Y_init;
+            Shape_X_Motion <= 10'd0;
+            Shape_Y_Motion <= Shape_Y_Step;
+            dongen <= dongen_in;
         end
         else
         begin
@@ -120,6 +130,7 @@ module  shape ( input         Clk,                // 50 MHz clock
             Shape_Y_Pos <= Shape_Y_Pos_in;
             Shape_X_Motion <= Shape_X_Motion_in;
             Shape_Y_Motion <= Shape_Y_Motion_in;
+            dongen <= dongen_in;
             // rotation <= rotation_in;
             // stop <= stop_in;  //updating the stop signal at the same time with the motion
         end
@@ -133,7 +144,8 @@ module  shape ( input         Clk,                // 50 MHz clock
         Shape_X_Motion_in = Shape_X_Motion;
         Shape_Y_Motion_in = Shape_Y_Motion;
         stop = 0;
-        dongen = 0;
+        dongen_in = dongen;
+        // dongen = 0;
         // rotation_in = rotation;
         // rotation_test = rotation + 1'd1;
         left = (Shape_X_Pos_in - Shape_X_Min) / Shape_X_Step;
@@ -155,11 +167,9 @@ module  shape ( input         Clk,                // 50 MHz clock
 
 
             if (Shape_Y_Motion == 10'h000)
-                stop = 1;
-
-            if (stop && Shape_Y_Pos == 10'd0)
-                dongen = 1;
-
+                begin
+                    stop = 1;
+                end
 
             //check for touching other shapes
             if (shape_type == 7'b0000001)   //S shape
@@ -169,12 +179,20 @@ module  shape ( input         Clk,                // 50 MHz clock
                         field[blocks_ypos[3] + 1][blocks_xpos[3]] == 1'b1))
                         begin
                             stop = 1;
+                            if(Shape_Y_Pos == 10'd0)
+                                begin
+                                    dongen_in = 1'b1;
+                                end
                         end
                     else if((rotation == 2'b01 || rotation == 2'b11) && 
                             (field[blocks_ypos[2] + 1][blocks_xpos[2]] == 1'b1 || 
                             field[blocks_ypos[3] + 1][blocks_xpos[3]] == 1'b1))
                         begin
                             stop = 1;
+                            if(Shape_Y_Pos == 10'd0)
+                                begin
+                                    dongen_in = 1'b1;
+                                end
                         end
                 end
             else if(shape_type == 7'b0000010)  //Z shape
@@ -184,12 +202,20 @@ module  shape ( input         Clk,                // 50 MHz clock
                         field[blocks_ypos[3] + 1][blocks_xpos[3]] == 1'b1))
                         begin
                             stop = 1;
+                            if(Shape_Y_Pos == 10'd0)
+                                begin
+                                    dongen_in = 1'b1;
+                                end
                         end
                     else if ((rotation == 2'b01 || rotation == 2'b11) && 
                         (field[blocks_ypos[1] + 1][blocks_xpos[1]] == 1'b1 ||
                         field[blocks_ypos[3] + 1][blocks_xpos[3]] == 1'b1))
                         begin
                             stop = 1;
+                            if(Shape_Y_Pos == 10'd0)
+                                begin
+                                    dongen_in = 1'b1;
+                                end
                         end
                 end 
             else if(shape_type == 7'b0000100)  //T shape
@@ -200,12 +226,20 @@ module  shape ( input         Clk,                // 50 MHz clock
                         field[blocks_ypos[3] + 1][blocks_xpos[3]] == 1'b1))
                         begin
                             stop = 1;
+                            if(Shape_Y_Pos == 10'd0)
+                                begin
+                                    dongen_in = 1'b1;
+                                end
                         end
                     else if(rotation == 2'b01 && 
                         (field[blocks_ypos[0] + 1][blocks_xpos[0]] == 1'b1 ||
                         field[blocks_ypos[3] + 1][blocks_xpos[3]] == 1'b1))
                         begin
                             stop = 1;
+                            if(Shape_Y_Pos == 10'd0)
+                                begin
+                                    dongen_in = 1'b1;
+                                end
                         end
                     else if (rotation == 2'b10 &&
                             (field[blocks_ypos[0] + 1][blocks_xpos[0]] == 1'b1 ||
@@ -213,12 +247,20 @@ module  shape ( input         Clk,                // 50 MHz clock
                             field[blocks_ypos[3] + 1][blocks_xpos[3]] == 1'b1))
                         begin
                             stop = 1;
+                            if(Shape_Y_Pos == 10'd0)
+                                begin
+                                    dongen_in = 1'b1;
+                                end
                         end
                     else if (rotation == 2'b11 && 
                             (field[blocks_ypos[2] + 1][blocks_xpos[2]] == 1'b1 ||
                             field[blocks_ypos[3] + 1][blocks_xpos[3] ] == 1'b1))
                         begin
                             stop = 1;
+                            if(Shape_Y_Pos == 10'd0)
+                                begin
+                                    dongen_in = 1'b1;
+                                end
                         end
 
                 end 
@@ -230,12 +272,20 @@ module  shape ( input         Clk,                // 50 MHz clock
                         field[blocks_ypos[3] + 1][blocks_xpos[3]] == 1'b1))
                         begin
                             stop = 1;
+                            if(Shape_Y_Pos == 10'd0)
+                                begin
+                                    dongen_in = 1'b1;
+                                end
                         end
                     else if (rotation == 2'b01 && 
                             (field[blocks_ypos[0] + 1][blocks_xpos[0]] == 1'b1 ||
                             field[blocks_ypos[3] + 1][blocks_xpos[3]] == 1'b1))
                         begin
                             stop = 1;
+                            if(Shape_Y_Pos == 10'd0)
+                                begin
+                                    dongen_in = 1'b1;
+                                end
                         end
                     else if (rotation == 2'b10 &&
                             (field[blocks_ypos[0] + 1][blocks_xpos[0]] == 1'b1 ||
@@ -243,12 +293,20 @@ module  shape ( input         Clk,                // 50 MHz clock
                             field[blocks_ypos[3] + 1][blocks_xpos[3]] == 1'b1))
                         begin
                             stop = 1;
+                            if(Shape_Y_Pos == 10'd0)
+                                begin
+                                    dongen_in = 1'b1;
+                                end
                         end
                     else if (rotation == 2'b11 &&
                             (field[blocks_ypos[2] + 1][blocks_xpos[2]] == 1'b1 ||
                             field[blocks_ypos[3] + 1][blocks_xpos[3]] == 1'b1))
                         begin
                             stop = 1;
+                            if(Shape_Y_Pos == 10'd0)
+                                begin
+                                    dongen_in = 1'b1;
+                                end
                         end
                 end 
             else if(shape_type == 7'b0010000)  //line
@@ -261,10 +319,18 @@ module  shape ( input         Clk,                // 50 MHz clock
                         field[blocks_ypos[3] + 1][blocks_xpos[3]] == 1'b1))
                         begin
                             stop = 1;
+                            if(Shape_Y_Pos == 10'd0)
+                                begin
+                                    dongen_in = 1'b1;
+                                end
                         end
                     else if((rotation == 2'b01 || rotation == 2'b11) && field[Shape_Y_Pos/24 + 3][(Shape_X_Pos - Shape_X_Min)/24] == 1'b1)
                         begin
                             stop = 1;
+                            if(Shape_Y_Pos == 10'd0)
+                                begin
+                                    dongen_in = 1'b1;
+                                end
                         end
                 end 
             else if(shape_type == 7'b0100000)  //J shape
@@ -275,12 +341,20 @@ module  shape ( input         Clk,                // 50 MHz clock
                         field[blocks_ypos[3] + 1][blocks_xpos[3]] == 1'b1))
                         begin
                             stop = 1;
+                            if(Shape_Y_Pos == 10'd0)
+                                begin
+                                    dongen_in = 1'b1;
+                                end
                         end
                     else if (rotation == 2'b01 && (
                         field[blocks_ypos[0] + 1][blocks_xpos[0]] == 1'b1 ||
                         field[blocks_ypos[3] + 1][blocks_xpos[3]] == 1'b1))
                         begin
                             stop = 1;
+                            if(Shape_Y_Pos == 10'd0)
+                                begin
+                                    dongen_in = 1'b1;
+                                end
                         end
                     else if (rotation == 2'b10 && (
                         field[blocks_ypos[1] + 1][blocks_xpos[1]] == 1'b1 ||
@@ -288,12 +362,20 @@ module  shape ( input         Clk,                // 50 MHz clock
                         field[blocks_ypos[3] + 1][blocks_xpos[3]] == 1'b1))
                         begin
                             stop = 1;
+                            if(Shape_Y_Pos == 10'd0)
+                                begin
+                                    dongen_in = 1'b1;
+                                end
                         end
                     else if (rotation == 2'b11 && (
                         field[blocks_ypos[2] + 1][blocks_xpos[2]] == 1'b1 ||
                         field[blocks_ypos[3] + 1][blocks_xpos[3]] == 1'b1))
                         begin
                             stop = 1;
+                            if(Shape_Y_Pos == 10'd0)
+                                begin
+                                    dongen_in = 1'b1;
+                                end
                         end
                 end 
             else if(shape_type == 7'b1000000)  //square shape
@@ -302,6 +384,10 @@ module  shape ( input         Clk,                // 50 MHz clock
                        field[blocks_ypos[3] + 1][blocks_xpos[3]] == 1'b1)
                         begin
                             stop = 1;
+                            if(Shape_Y_Pos == 10'd0)
+                                begin
+                                    dongen_in = 1'b1;
+                                end
                         end
                 end 
 
