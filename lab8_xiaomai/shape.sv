@@ -104,7 +104,7 @@ module  shape ( input         Clk,                // 50 MHz clock
             rotation <= rotation_init;
             add_shape <= 0;
         end
-        else if (linestack_reset)      //we need to consider Reset too???
+        else if (linestack_reset)    
         begin
             Shape_X_Pos <= Shape_X_init;
             Shape_Y_Pos <= Shape_Y_init;
@@ -197,10 +197,10 @@ module  shape ( input         Clk,                // 50 MHz clock
 
             if (rotation_in == rotation)
             begin
-                if( Shape_Y_Pos + (height * Shape_X_Step) >= Shape_Y_Max )  // Shape is at the bottom edge, stop!
+                if( Shape_Y_Pos + (height * Shape_X_Step) >= Shape_Y_Max)  // Shape is at the bottom edge, stop!
                 begin
                     Shape_Y_Motion_in = 10'h000;  // 2's complement. 
-                    Shape_Y_Pos_in = Shape_Y_Max - (height * Shape_X_Step) + 1;
+                    Shape_Y_Pos_in = Shape_Y_Max - (height * Shape_X_Step);
                     add_shape_in = 1;      //new shape should come in
                     rotation_in = rotation_in;
                 end
@@ -215,7 +215,7 @@ module  shape ( input         Clk,                // 50 MHz clock
                 if( Shape_X_Pos + Shape_Size >= Shape_X_Max )  // Shape is at the right edge, stop!
                 begin
                     Shape_X_Motion_in = 10'h000;  // 2's complement.  
-                    Shape_X_Pos_in = Shape_X_Max - Shape_Size + 1;
+                    Shape_X_Pos_in = Shape_X_Max - Shape_Size;
                     add_shape_in = 0 | add_shape_in;
                     rotation_in = rotation_in;
                 end
@@ -255,10 +255,10 @@ module  shape ( input         Clk,                // 50 MHz clock
             end
             else
             begin
-                if( Shape_Y_Pos + (height_test * Shape_X_Step) >= Shape_Y_Max )  // Shape is at the bottom edge, stop!
+                if( Shape_Y_Pos + (height_test * Shape_X_Step) >= Shape_Y_Max)  // Shape is at the bottom edge, stop!
                 begin
                     Shape_Y_Motion_in = 10'h000;  // 2's complement. 
-                    Shape_Y_Pos_in = Shape_Y_Max - (height_test * Shape_X_Step) + 1;
+                    Shape_Y_Pos_in = Shape_Y_Max - (height_test * Shape_X_Step);
                     add_shape_in = 1;      //new shape should come in
                     rotation_in = rotation;  
                 end
@@ -273,7 +273,7 @@ module  shape ( input         Clk,                // 50 MHz clock
                 if( Shape_X_Pos + Shape_Size_test >= Shape_X_Max )  // Shape is at the right edge, stop!
                 begin
                     Shape_X_Motion_in = 10'h000;  // 2's complement.  
-                    Shape_X_Pos_in = Shape_X_Max - Shape_Size_test + 1;
+                    Shape_X_Pos_in = Shape_X_Max - Shape_Size_test;
                     add_shape_in = 0 | add_shape_in;
                     rotation_in = rotation; 
                 end
