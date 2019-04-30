@@ -1,7 +1,7 @@
 module background(
 				input logic 	[9:0] DrawX, DrawY,
 				input logic 	is_shape, is_boundary,
-				input 	[6:0] field_color[19:0][9:0], 	
+				input 	[19:0][9:0][6:0] field_color, 	
 				output logic 	is_background,
 				output logic 	[7:0] backRed, backGreen, backBlue
 				);
@@ -27,21 +27,112 @@ begin
 			backBlue = 8'hEB;
 			bottomShape = 7'h00;
 		end
-	else if(~is_shape && ~is_boundary && DrawX < 439 && DrawX > 200)
+	else if(~is_shape && ~is_boundary && DrawX < 439 && DrawX >= 200)
 		begin
-			for(int i = 19; i > 0; i--)
-			begin
-				for(int j = 0; j < 9; j++)
-				begin
-
-					bottomShape = field_color[i][j];
+			// if (DrawX < 224 && DrawX >= 200 && DrawY < 24 && DrawY >= 0)
+			// 	begin
+					bottomShape = field_color[DrawY / 24][(DrawX - offsetleft)/ 24];
 					backRed = blockRed;
 					backGreen = blockGreen;
 					backBlue = blockBlue;
 					is_background = 1'b1;
+				// end
+			// else if (DrawX < 248 && DrawX >=224 && DrawY < 24 && DrawY >= 0)
+			// 	begin
+			// 		bottomShape = field_color[0][1];
+			// 		backRed = blockRed;
+			// 		backGreen = blockGreen;
+			// 		backBlue = blockBlue;
+			// 		is_background = 1'b1;
+			// 	end
+			// else if(DrawX < 272 && DrawX >= 248 && DrawY <24 && DrawY  >= 0)
+			// 	begin
+			// 		bottomShape = field_color[0][2];
+			// 		backRed = blockRed;
+			// 		backGreen = blockGreen;
+			// 		backBlue = blockBlue;
+			// 		is_background = 1'b1;
+			// 	end
+			// else if(DrawX < 296 && DrawX >= 272 && DrawY < 24 && DrawY >= 0)
+			// 	begin
+			// 		bottomShape = field_color[0][3];
+			// 		backRed = blockRed;
+			// 		backGreen = blockGreen;
+			// 		backBlue = blockBlue;
+			// 		is_background = 1'b1;
+			// 	end
+			// else if(DrawX < 320 && DrawX >= 296 && DrawY < 24 && DrawY >= 0)
+			// 	begin
+			// 		bottomShape = field_color[0][4];
+			// 		backRed = blockRed;
+			// 		backGreen = blockGreen;
+			// 		backBlue = blockBlue;
+			// 		is_background = 1'b1;
+			// 	end
+			// else if(DrawX < 320 && DrawX >= 296 && DrawY < 24 && DrawY >= 0)
+			// 	begin
+			// 		bottomShape = field_color[0][4];
+			// 		backRed = blockRed;
+			// 		backGreen = blockGreen;
+			// 		backBlue = blockBlue;
+			// 		is_background = 1'b1;
+			// 	end
+			// else if(DrawX < 320 && DrawX >= 296 && DrawY < 24 && DrawY >= 0)
+			// 	begin
+			// 		bottomShape = field_color[0][4];
+			// 		backRed = blockRed;
+			// 		backGreen = blockGreen;
+			// 		backBlue = blockBlue;
+			// 		is_background = 1'b1;
+			// 	end
+			// else if(DrawX < 320 && DrawX >= 296 && DrawY < 24 && DrawY >= 0)
+			// 	begin
+			// 		bottomShape = field_color[0][4];
+			// 		backRed = blockRed;
+			// 		backGreen = blockGreen;
+			// 		backBlue = blockBlue;
+			// 		is_background = 1'b1;
+			// 	end
+			// else if(DrawX < 320 && DrawX >= 296 && DrawY < 24 && DrawY >= 0)
+			// 	begin
+			// 		bottomShape = field_color[0][4];
+			// 		backRed = blockRed;
+			// 		backGreen = blockGreen;
+			// 		backBlue = blockBlue;
+			// 		is_background = 1'b1;
+			// 	end
+			// else if(DrawX < 320 && DrawX >= 296 && DrawY < 24 && DrawY >= 0)
+			// 	begin
+			// 		bottomShape = field_color[0][4];
+			// 		backRed = blockRed;
+			// 		backGreen = blockGreen;
+			// 		backBlue = blockBlue;
+			// 		is_background = 1'b1;
+			// 	end
+			// else if(DrawX < 320 && DrawX >= 296 && DrawY < 24 && DrawY >= 0)
+			// 	begin
+			// 		bottomShape = field_color[0][4];
+			// 		backRed = blockRed;
+			// 		backGreen = blockGreen;
+			// 		backBlue = blockBlue;
+			// 		is_background = 1'b1;
+			// 	end
+
+
+
+			// for(int i = 19; i > 0; i--)
+			// begin
+			// 	for(int j = 0; j < 9; j++)
+			// 	begin
+
+			// 		bottomShape = field_color[i][j];
+			// 		backRed = blockRed;
+			// 		backGreen = blockGreen;
+			// 		backBlue = blockBlue;
+			// 		is_background = 1'b1;
 						
-				end
-			end
+			// 	end
+			// end
 
 		end
 	else

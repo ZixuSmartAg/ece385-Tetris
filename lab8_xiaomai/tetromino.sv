@@ -5,7 +5,7 @@ module  tetromino ( input  Clk,
                   input [1:0]   rotation,
                   output [4:0] xpos[3:0],
                   output [4:0] ypos[3:0],
-                  output [4:0] height
+                  output [1:0] height
                   );
 
     always_comb
@@ -30,10 +30,10 @@ module  tetromino ( input  Clk,
                             begin
                                 xpos[0] = left; 
                                 ypos[0] = top; 
-                                xpos[1] = left; 
-                                ypos[1] = top + 1'b1; 
-                                xpos[2] = left + 1'b1; 
+                                xpos[2] = left; 
                                 ypos[2] = top + 1'b1; 
+                                xpos[1] = left + 1'b1; 
+                                ypos[1] = top + 1'b1; 
                                 xpos[3] = left + 1'b1; 
                                 ypos[3] = top + 2'b10; 
                                 height = 2'b11;
@@ -54,10 +54,10 @@ module  tetromino ( input  Clk,
                             begin
                                 xpos[0] = left; 
                                 ypos[0] = top; 
-                                xpos[1] = left; 
-                                ypos[1] = top + 1'b1; 
-                                xpos[2] = left + 1'b1; 
+                                xpos[2] = left; 
                                 ypos[2] = top + 1'b1; 
+                                xpos[1] = left + 1'b1; 
+                                ypos[1] = top + 1'b1; 
                                 xpos[3] = left + 1'b1; 
                                 ypos[3] = top + 2'b10; 
                                 height = 2'b11;
@@ -284,7 +284,7 @@ module  tetromino ( input  Clk,
                                 ypos[2] = top; 
                                 xpos[3] = left + 2'b11; 
                                 ypos[3] = top; 
-                                height = 1'b1;
+                                height = 2'b01;
                             end
                         2'b01 : 
                             begin
@@ -296,7 +296,7 @@ module  tetromino ( input  Clk,
                                 ypos[2] = top + 2'b10; 
                                 xpos[3] = left; 
                                 ypos[3] = top + 2'b11; 
-                                height = 3'b100;
+                                height = 2'b11;
                             end
                         2'b10 : 
                             begin
@@ -308,7 +308,7 @@ module  tetromino ( input  Clk,
                                 ypos[2] = top; 
                                 xpos[3] = left + 2'b11; 
                                 ypos[3] = top; 
-                                height = 1'b1;
+                                height = 2'b01;
                             end
                         2'b11 : 
                             begin
@@ -320,7 +320,7 @@ module  tetromino ( input  Clk,
                                 ypos[2] = top + 2'b10; 
                                 xpos[3] = left; 
                                 ypos[3] = top + 2'b11; 
-                                height = 3'b100;
+                                height = 2'b11;
                             end
                             default:
                             begin
